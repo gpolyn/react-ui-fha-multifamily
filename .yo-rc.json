@@ -1,0 +1,19 @@
+{
+  "generator-fountain-react": {
+    "version": "1.0.0",
+    "props": {
+      "resolved": "/Users/gallagherpolyn/.node/lib/node_modules/generator-fountain-react/generators/app/index.js",
+      "namespace": "fountain-react:app",
+      "_": [],
+      "framework": "react",
+      "modules": "webpack",
+      "js": "typescript",
+      "css": "css",
+      "ci": [
+        "travis"
+      ],
+      "sample": "techs",
+      "router": "none"
+    }
+  }
+}
