@@ -44,6 +44,7 @@ export class OtherIncome extends React.Component<IIncomeAggregatorProps<IOtherIn
         <OtherIncomeForm
           onChange={this.onChange}
           onSubmit={this.onSubmit}
+          containerCSSId={'new-other-income'}
           {...this.state}
           />
         {incomes.map(income =>

@@ -6,6 +6,7 @@ import {OtherIncomeForm} from './OtherIncomeForm';
 const initialSquareFeet = 420;
 const initialMonthlyRent = 503;
 const initialUsage = 'fart';
+const containerCSSId = 'new-other-income';
 
 function setup(propOverrides: any) {
   const props = Object.assign({
@@ -13,6 +14,7 @@ function setup(propOverrides: any) {
     onSubmit: jasmine.createSpy('onSubmit'),
     squareFeet: initialSquareFeet,
     monthlyRent: initialMonthlyRent,
+    containerCSSId: containerCSSId,
     usage: initialUsage
   }, propOverrides);
 
@@ -33,6 +35,7 @@ describe('OtherIncomeForm', () => {
   it('initial render', () => {
     const {output} = setup({});
     expect(output.type).toBe('form');
+    expect(output.props.id).toBe(containerCSSId);
     const [usage, squareFeet, rent] = output.props.children;
 
     expect(usage.type).toBe('label');

@@ -10,21 +10,6 @@ export class OtherIncomeForm extends React.PureComponent<any, any> {
     this.updateNumericField = this.updateNumericField.bind(this);
   }
 
-  private updateStringField(e: any) {
-    this.props.onChange({[e.target.name]: e.target.value});
-  }
-
-  private updateNumericField(e: any) {
-    const target = e.target;
-    const parsedVal = parseInt(target.value, 10) || '';
-    const name = target.name;
-    this.props.onChange({[name]: parsedVal});
-  }
-
-  private fmt(fieldVal: any) {
-    return fieldVal || '';
-  }
-
   handleSubmit(event: React.FormEvent<any>) {
     this.props.onSubmit();
     event.preventDefault();
@@ -33,7 +18,7 @@ export class OtherIncomeForm extends React.PureComponent<any, any> {
   render() {
     const {usage, squareFeet, monthlyRent} = this.props;
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit} id={this.props.containerCSSId}>
         <label>
           usage
           <input name='usage' className='usage' type='text' value={usage} onChange={this.updateStringField}/>
@@ -50,6 +35,22 @@ export class OtherIncomeForm extends React.PureComponent<any, any> {
       </form>
     );
   }
+
+  private updateStringField(e: any) {
+    this.props.onChange({[e.target.name]: e.target.value});
+  }
+
+  private updateNumericField(e: any) {
+    const target = e.target;
+    const parsedVal = parseInt(target.value, 10) || '';
+    const name = target.name;
+    this.props.onChange({[name]: parsedVal});
+  }
+
+  private fmt(fieldVal: any) {
+    return fieldVal || '';
+  }
+
 
   /*
   public static defaultProps: Partial<IOtherIncome> = {
