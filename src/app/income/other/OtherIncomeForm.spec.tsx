@@ -7,6 +7,9 @@ const initialSquareFeet = 420;
 const initialMonthlyRent = 503;
 const initialUsage = 'fart';
 const containerCSSId = 'new-other-income';
+const usageInputClassName = 'usage';
+const squareFeetInputClassName = 'square-feet';
+const monthlyRentInputClassName = 'monthly-rent';
 
 function setup(propOverrides: any) {
   const props = Object.assign({
@@ -15,6 +18,9 @@ function setup(propOverrides: any) {
     squareFeet: initialSquareFeet,
     monthlyRent: initialMonthlyRent,
     containerCSSId: containerCSSId,
+    usageInputClassName: usageInputClassName,
+    squareFeetInputClassName: squareFeetInputClassName,
+    monthlyRentInputClassName: monthlyRentInputClassName,
     usage: initialUsage
   }, propOverrides);
 
@@ -42,21 +48,21 @@ describe('OtherIncomeForm', () => {
     const [usageLabelText, usageInput] = usage.props.children;
     expect(usageLabelText).toBe('usage');
     expect(usageInput.type).toBe('input');
-    expect(usageInput.props.className).toBe('usage');
+    expect(usageInput.props.className).toBe(usageInputClassName);
     expect(usageInput.props.name).toBe('usage');
 
     expect(squareFeet.type).toBe('label');
     const [squareFeetLabelText, squareFeetInput] = squareFeet.props.children;
     expect(squareFeetLabelText).toBe('square feet');
     expect(squareFeetInput.type).toBe('input');
-    expect(squareFeetInput.props.className).toBe('apartment-square-feet');
+    expect(squareFeetInput.props.className).toBe(squareFeetInputClassName);
     expect(squareFeetInput.props.name).toBe('squareFeet');
 
     expect(rent.type).toBe('label');
     const [monthlyRentLabelText, apartmentMonthlyRentInput] = rent.props.children;
     expect(monthlyRentLabelText).toBe('monthly rent');
     expect(apartmentMonthlyRentInput.type).toBe('input');
-    expect(apartmentMonthlyRentInput.props.className).toBe('apartment-monthly-rent');
+    expect(apartmentMonthlyRentInput.props.className).toBe(monthlyRentInputClassName);
     expect(apartmentMonthlyRentInput.props.name).toBe('monthlyRent');
   });
   it('should have expected initial field values', () => {

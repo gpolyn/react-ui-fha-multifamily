@@ -21,15 +21,15 @@ export class OtherIncomeForm extends React.PureComponent<any, any> {
       <form onSubmit={this.handleSubmit} id={this.props.containerCSSId}>
         <label>
           usage
-          <input name='usage' className='usage' type='text' value={usage} onChange={this.updateStringField}/>
+          <input name='usage' className={this.props.usageInputClassName} type='text' value={usage} onChange={this.updateStringField}/>
         </label>
         <label>
           square feet
-          <input name='squareFeet' className='apartment-square-feet' type='number' value={this.fmt(squareFeet)} onChange={this.updateNumericField}/>
+          <input name='squareFeet' className={this.props.squareFeetInputClassName} type='number' value={this.fmt(squareFeet)} onChange={this.updateNumericField}/>
         </label>
         <label>
           monthly rent
-          <input name='monthlyRent' className='apartment-monthly-rent' type='number' value={this.fmt(monthlyRent)} onChange={this.updateNumericField}/>
+          <input name='monthlyRent' className={this.props.monthlyRentInputClassName} type='number' value={this.fmt(monthlyRent)} onChange={this.updateNumericField}/>
         </label>
         <input type='submit' value='Submit'/>
       </form>
