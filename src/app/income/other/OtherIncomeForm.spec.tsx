@@ -42,7 +42,7 @@ describe('OtherIncomeForm', () => {
     const {output} = setup({});
     expect(output.type).toBe('form');
     expect(output.props.id).toBe(containerCSSId);
-    const [usage, squareFeet, rent] = output.props.children;
+    const [usage, squareFeet, rent, submitInput] = output.props.children;
 
     expect(usage.type).toBe('label');
     const [usageLabelText, usageInput] = usage.props.children;
@@ -64,16 +64,19 @@ describe('OtherIncomeForm', () => {
     expect(apartmentMonthlyRentInput.type).toBe('input');
     expect(apartmentMonthlyRentInput.props.className).toBe(monthlyRentInputClassName);
     expect(apartmentMonthlyRentInput.props.name).toBe('monthlyRent');
+
+    expect(submitInput.type).toBe('input');
+    expect(submitInput.props.type).toBe('submit');
   });
   it('should have expected initial field values', () => {
+    const expectedFieldVals = ['blah', 450, 432];
     const nullFieldValues = {
-      usage: 'blah',
-      squareFeet: 450,
-      monthlyRent: 432,
+      usage: expectedFieldVals[0],
+      squareFeet: expectedFieldVals[1],
+      monthlyRent: expectedFieldVals[2]
     };
     const {output} = setup(nullFieldValues);
     const [usage, squareFeet, monthlyRent] = output.props.children;
-    const expectedFieldVals = ['blah', 450, 432];
     [usage, squareFeet, monthlyRent].forEach((field, idx) => {
       expect(field.props.children[1].props.value).toBe(expectedFieldVals[idx]);
     });
