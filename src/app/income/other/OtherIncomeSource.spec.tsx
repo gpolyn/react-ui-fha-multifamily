@@ -5,13 +5,15 @@ import {OtherIncomeSource} from './OtherIncomeSource';
 
 const initialSquareFeet = 420;
 const initialMonthlyRent = 503;
-const initialUsage = 'fart';
+const initialUsage = 'kart';
+const containerClassName = 'other-income';
 
 function setup(propOverrides: any) {
   const props = Object.assign({
     onDelete: jasmine.createSpy('onDelete'),
     squareFeet: initialSquareFeet,
     monthlyRent: initialMonthlyRent,
+    containerClassName: containerClassName,
     usage: initialUsage
   }, propOverrides);
 
@@ -32,11 +34,11 @@ describe('OtherIncomeSource', () => {
   it('initial render', () => {
     const {output} = setup({});
     expect(output.type).toBe('div');
-    expect(output.props.className).toBe('other-income');
-    const [usage, squareFeet, rent] = output.props.children;
+    expect(output.props.className).toBe(containerClassName);
+    const [usage, squareFeet, rent, deleteBtn] = output.props.children;
 
     expect(usage.type).toBe('div');
-    expect(usage.props.className).toBe('usage');
+    expect(usage.props.className).toBe('use');
     expect(usage.props.children.type).toBe('div');
     const usageContent = usage.props.children.props;
     expect(usageContent.className).toBe('display');
@@ -55,11 +57,19 @@ describe('OtherIncomeSource', () => {
     const rentContent = rent.props.children.props;
     expect(rentContent.className).toBe('display');
     expect(rentContent.children).toBe(initialMonthlyRent);
+
+    expect(deleteBtn.type).toBe('div');
+    expect(deleteBtn.props.className).toBe('delete-container');
+    expect(deleteBtn.props.children.type).toBe('button');
+    const deleteContent = deleteBtn.props.children.props;
+    const expectedClassNames = 'simple-income-source-destroy destroy-item';
+    expect(deleteContent.className).toBe(expectedClassNames);
   });
 
-  it('should call onDelete for button onClick', () => {
+  it('should call onDelete for delete button onClick', () => {
     const {props, output} = setup({});
-    output.props.children[3].props.children.props.onClick();
+    const [, , , deleteBtn] = output.props.children;
+    deleteBtn.props.children.props.onClick();
     expect(props.onDelete).toHaveBeenCalled();
   });
 });

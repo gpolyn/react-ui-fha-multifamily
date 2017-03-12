@@ -39,7 +39,6 @@ export class OtherIncome extends React.Component<IIncomeAggregatorProps<IOtherIn
 
   render() {
     const {incomes} = this.props;
-    console.log('OtherIncome#render', this.state)
     return (
       <section className='other-income'>
         <OtherIncomeForm
@@ -51,6 +50,7 @@ export class OtherIncome extends React.Component<IIncomeAggregatorProps<IOtherIn
           <OtherIncomeSource
             key={income.id}
             {...income}
+            containerClassName={'other-income'}
             onDelete={this.handleDelete}
             />
         )}

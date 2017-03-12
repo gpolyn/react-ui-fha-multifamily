@@ -9,7 +9,7 @@ function setup(propOverrides) {
   const props = Object.assign({
     incomes: [
       {id: 0,
-        usage: 'fart',
+        usage: 'kart',
         squareFeet: 456,
         monthlyRent: 654
       },
@@ -49,7 +49,7 @@ describe('OtherIncome', () => {
     const component = TestUtils.renderIntoDocument(
       <OtherIncome {...props}/>
     );
-    expect(component).toBe('fart');
+    expect(component).toBe('kart');
   });
   it('should display all incomes as OtherIncomeSource instances', () => {
     const {output, props} = setup({});

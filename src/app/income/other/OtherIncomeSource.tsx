@@ -5,9 +5,10 @@ export class OtherIncomeSource extends React.PureComponent<any, {}> {
 
   render() {
     console.log("rendering OtherIncomeSource")
+    const deleteCssClasses = 'simple-income-source-destroy destroy-item';
     return (
-      <div className='other-income'>
-        <div className='usage'>
+      <div className={this.props.containerClassName}>
+        <div className='use'>
           <div className='display'>
             {this.props.usage}
           </div>
@@ -23,7 +24,7 @@ export class OtherIncomeSource extends React.PureComponent<any, {}> {
           </div>
         </div>
         <div className='delete-container'>
-          <button className='apartment-income-destroy' onClick={ () => {this.props.onDelete(this.props.id)} }>
+          <button className={deleteCssClasses} onClick={ () => {this.props.onDelete(this.props.id)} }>
             delete
           </button>
         </div>
