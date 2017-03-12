@@ -9,7 +9,7 @@ const initialUsage = 'fart';
 
 function setup(propOverrides: any) {
   const props = Object.assign({
-    onSave: jasmine.createSpy('onSave'),
+    onChange: jasmine.createSpy('onChange'),
     onSubmit: jasmine.createSpy('onSubmit'),
     squareFeet: initialSquareFeet,
     monthlyRent: initialMonthlyRent,
@@ -69,26 +69,26 @@ describe('OtherIncomeForm', () => {
       expect(field.props.children[1].props.value).toBe(expectedFieldVals[idx]);
     });
   });
-  it('should call onSave for usage input onChange', () => {
+  it('should call onChange for usage input onChange', () => {
     const {output, props} = setup({});
     const [usage] = output.props.children;
     const [, input] = usage.props.children;
     input.props.onChange({target: {}});
-    expect(props.onSave).toHaveBeenCalled();
+    expect(props.onChange).toHaveBeenCalled();
   });
-  it('should call onSave for squareFeet input onChange', () => {
+  it('should call onChange for squareFeet input onChange', () => {
     const {output, props} = setup({});
     const [, squareFeet] = output.props.children;
     const [, input] = squareFeet.props.children;
     input.props.onChange({target: {}});
-    expect(props.onSave).toHaveBeenCalled();
+    expect(props.onChange).toHaveBeenCalled();
   });
-  it('should call onSave for monthlyRent input onChange', () => {
+  it('should call onChange for monthlyRent input onChange', () => {
     const {output, props} = setup({});
     const [, , monthlyRent] = output.props.children;
     const [, input] = monthlyRent.props.children;
     input.props.onChange({target: {}});
-    expect(props.onSave).toHaveBeenCalled();
+    expect(props.onChange).toHaveBeenCalled();
   });
   it('should call onSubmit for form submit', () => {
     const {props, output} = setup({});

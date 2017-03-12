@@ -11,14 +11,14 @@ export class OtherIncomeForm extends React.PureComponent<any, any> {
   }
 
   private updateStringField(e: any) {
-    this.props.onSave({[e.target.name]: e.target.value});
+    this.props.onChange({[e.target.name]: e.target.value});
   }
 
   private updateNumericField(e: any) {
     const target = e.target;
     const parsedVal = parseInt(target.value, 10) || '';
     const name = target.name;
-    this.props.onSave({[name]: parsedVal});
+    this.props.onChange({[name]: parsedVal});
   }
 
   private fmt(fieldVal: any) {

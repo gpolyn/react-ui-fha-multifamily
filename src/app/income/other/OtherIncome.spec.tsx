@@ -81,8 +81,8 @@ describe('OtherIncome', () => {
   it('should call onSave on onSubmit for valid new income', () => {
     const {props, output, renderer} = setup({});
     const [newIncome] = output.props.children;
-    const {onSave} = newIncome.props;
-    onSave({monthlyRent: 123});
+    const {onChange} = newIncome.props;
+    onChange({monthlyRent: 123});
     const updatedOutput = renderer.getRenderOutput();
     const [updatedNewIncome] = updatedOutput.props.children;
     const {onSubmit} = updatedNewIncome.props;
@@ -95,8 +95,8 @@ describe('OtherIncome', () => {
   it('should not call onSave on onSubmit for invalid new income', () => {
     const {props, output, renderer} = setup({});
     const [newIncome] = output.props.children;
-    const {onSave} = newIncome.props;
-    onSave({monthlyRent: ''});
+    const {onChange} = newIncome.props;
+    onChange({monthlyRent: ''});
     const updatedOutput = renderer.getRenderOutput();
     const [updatedNewIncome] = updatedOutput.props.children;
     const {onSubmit} = updatedNewIncome.props;

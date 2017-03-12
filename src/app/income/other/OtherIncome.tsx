@@ -10,7 +10,7 @@ export class OtherIncome extends React.Component<IIncomeAggregatorProps<IOtherIn
 
   constructor(props) {
     super(props);
-    this.onSave = this.onSave.bind(this);
+    this.onChange = this.onChange.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.formVals = {
@@ -32,7 +32,7 @@ export class OtherIncome extends React.Component<IIncomeAggregatorProps<IOtherIn
     }
   }
 
-  onSave(data: any) {
+  onChange(data: any) {
     this.setState(prevState => ({...prevState, ...data}));
     console.log("after setting state", this.state)
   }
@@ -43,7 +43,7 @@ export class OtherIncome extends React.Component<IIncomeAggregatorProps<IOtherIn
     return (
       <section className='other-income'>
         <OtherIncomeForm
-          onSave={this.onSave}
+          onChange={this.onChange}
           onSubmit={this.onSubmit}
           {...this.state}
           />
