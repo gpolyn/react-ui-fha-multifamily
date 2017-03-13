@@ -21,7 +21,7 @@ export class OtherIncomeForm extends React.PureComponent<any, any> {
       <form onSubmit={this.handleSubmit} id={this.props.containerCSSId}>
         <label>
           usage
-          <input name='usage' className={this.props.usageInputClassName} type='text' value={usage} onChange={this.updateStringField}/>
+          <input name='usage' className={this.props.usageInputClassName} type='text' value={this.fmt(usage)} onChange={this.updateStringField}/>
         </label>
         <label>
           square feet
