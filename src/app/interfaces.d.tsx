@@ -3,12 +3,13 @@ interface IIncome {
 }
 
 interface IIdentified {
-  readonly id: any
+  readonly id: number
 }
 
 interface IIncomeAggregatorProps<T extends IIncome, U> {
   incomes: ReadonlyArray<Readonly<U & IIdentified>>;
-  defaultValues?: U;
+  initialValues?: U;
   onSave: (val: T & U) => void | any;
   onDestroy: (id: any) => void | any;
+  [propName: string]: any;
 }
