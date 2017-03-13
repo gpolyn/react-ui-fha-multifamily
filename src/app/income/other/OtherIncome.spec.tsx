@@ -24,6 +24,13 @@ function setup(propOverrides) {
       monthlyRent: 0,
       squareFeet: undefined
     },
+    css: {
+      usageInputName: 'use',
+      squareFeetInputName: 'square-feet',
+      monthlyRentInputName: 'monthly-rent',
+      newIncomeContainerName: 'new-income',
+      incomeSourceContainerName: 'blah'
+    },
     onSave: jasmine.createSpy('onSave'),
     onDestroy: jasmine.createSpy('onDestroy'),
   }, propOverrides);

@@ -7,7 +7,7 @@ export class OtherIncomeSource extends React.PureComponent<any, {}> {
     console.log("rendering OtherIncomeSource")
     const deleteCssClasses = 'simple-income-source-destroy destroy-item';
     return (
-      <div className={this.props.containerClassName}>
+      <div className={this.props.incomeSourceContainerName}>
         <div className='use'>
           <div className='display'>
             {this.props.usage}

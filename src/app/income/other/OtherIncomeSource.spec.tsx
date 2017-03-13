@@ -3,18 +3,13 @@ import * as React from 'react';
 import * as TestUtils from 'react-addons-test-utils';
 import {OtherIncomeSource} from './OtherIncomeSource';
 
-const initialSquareFeet = 420;
-const initialMonthlyRent = 503;
-const initialUsage = 'kart';
-const containerClassName = 'other-income';
-
 function setup(propOverrides: any) {
   const props = Object.assign({
     onDelete: jasmine.createSpy('onDelete'),
-    squareFeet: initialSquareFeet,
-    monthlyRent: initialMonthlyRent,
-    containerClassName: containerClassName,
-    usage: initialUsage
+    squareFeet: 420,
+    monthlyRent: 503,
+    incomeSourceContainerName: 'other-residential-income',
+    usage: 'kart'
   }, propOverrides);
 
   const renderer = TestUtils.createRenderer();
@@ -32,9 +27,9 @@ function setup(propOverrides: any) {
 
 describe('OtherIncomeSource', () => {
   it('initial render', () => {
-    const {output} = setup({});
+    const {output, props} = setup({});
     expect(output.type).toBe('div');
-    expect(output.props.className).toBe(containerClassName);
+    expect(output.props.className).toBe(props.incomeSourceContainerName);
     const [usage, squareFeet, rent, deleteBtn] = output.props.children;
 
     expect(usage.type).toBe('div');
@@ -42,21 +37,21 @@ describe('OtherIncomeSource', () => {
     expect(usage.props.children.type).toBe('div');
     const usageContent = usage.props.children.props;
     expect(usageContent.className).toBe('display');
-    expect(usageContent.children).toBe(initialUsage);
+    expect(usageContent.children).toBe(props.usage);
 
     expect(squareFeet.type).toBe('div');
     expect(squareFeet.props.className).toBe('square-feet');
     expect(squareFeet.props.children.type).toBe('div');
     const squareFeetContent = squareFeet.props.children.props;
     expect(squareFeetContent.className).toBe('display');
-    expect(squareFeetContent.children).toBe(initialSquareFeet);
+    expect(squareFeetContent.children).toBe(props.squareFeet);
 
     expect(rent.type).toBe('div');
     expect(rent.props.className).toBe('monthly-rent');
     expect(rent.props.children.type).toBe('div');
     const rentContent = rent.props.children.props;
     expect(rentContent.className).toBe('display');
-    expect(rentContent.children).toBe(initialMonthlyRent);
+    expect(rentContent.children).toBe(props.monthlyRent);
 
     expect(deleteBtn.type).toBe('div');
     expect(deleteBtn.props.className).toBe('delete-container');

@@ -3,25 +3,19 @@ import * as React from 'react';
 import * as TestUtils from 'react-addons-test-utils';
 import {OtherIncomeForm} from './OtherIncomeForm';
 
-const initialSquareFeet = 420;
-const initialMonthlyRent = 503;
-const initialUsage = 'fart';
-const containerCSSId = 'new-other-income';
-const usageInputClassName = 'usage';
-const squareFeetInputClassName = 'square-feet';
-const monthlyRentInputClassName = 'monthly-rent';
-
 function setup(propOverrides: any) {
   const props = Object.assign({
     onChange: jasmine.createSpy('onChange'),
     onSubmit: jasmine.createSpy('onSubmit'),
-    squareFeet: initialSquareFeet,
-    monthlyRent: initialMonthlyRent,
-    containerCSSId: containerCSSId,
-    usageInputClassName: usageInputClassName,
-    squareFeetInputClassName: squareFeetInputClassName,
-    monthlyRentInputClassName: monthlyRentInputClassName,
-    usage: initialUsage
+    squareFeet: 420,
+    monthlyRent: 503,
+    css: {
+      newIncomeContainerName: 'new-other-income',
+      usageInputName: 'other-residential-use usage',
+      squareFeetInputName: 'other-residential-square-feet',
+      monthlyRentInputName: 'other-residential-monthly-rent'
+    },
+    usage: 'kart'
   }, propOverrides);
 
   const renderer = TestUtils.createRenderer();
@@ -39,30 +33,30 @@ function setup(propOverrides: any) {
 
 describe('OtherIncomeForm', () => {
   it('initial render', () => {
-    const {output} = setup({});
+    const {output, props} = setup({});
     expect(output.type).toBe('form');
-    expect(output.props.id).toBe(containerCSSId);
+    expect(output.props.id).toBe(props.css.newIncomeContainerName);
     const [usage, squareFeet, rent, submitInput] = output.props.children;
 
     expect(usage.type).toBe('label');
     const [usageLabelText, usageInput] = usage.props.children;
     expect(usageLabelText).toBe('usage');
     expect(usageInput.type).toBe('input');
-    expect(usageInput.props.className).toBe(usageInputClassName);
+    expect(usageInput.props.className).toBe(props.css.usageInputName);
     expect(usageInput.props.name).toBe('usage');
 
     expect(squareFeet.type).toBe('label');
     const [squareFeetLabelText, squareFeetInput] = squareFeet.props.children;
     expect(squareFeetLabelText).toBe('square feet');
     expect(squareFeetInput.type).toBe('input');
-    expect(squareFeetInput.props.className).toBe(squareFeetInputClassName);
+    expect(squareFeetInput.props.className).toBe(props.css.squareFeetInputName);
     expect(squareFeetInput.props.name).toBe('squareFeet');
 
     expect(rent.type).toBe('label');
     const [monthlyRentLabelText, apartmentMonthlyRentInput] = rent.props.children;
     expect(monthlyRentLabelText).toBe('monthly rent');
     expect(apartmentMonthlyRentInput.type).toBe('input');
-    expect(apartmentMonthlyRentInput.props.className).toBe(monthlyRentInputClassName);
+    expect(apartmentMonthlyRentInput.props.className).toBe(props.css.monthlyRentInputName);
     expect(apartmentMonthlyRentInput.props.name).toBe('monthlyRent');
 
     expect(submitInput.type).toBe('input');

@@ -16,20 +16,20 @@ export class OtherIncomeForm extends React.PureComponent<any, any> {
   }
 
   render() {
-    const {usage, squareFeet, monthlyRent} = this.props;
+    const {usage, squareFeet, monthlyRent, css} = this.props;
     return (
-      <form onSubmit={this.handleSubmit} id={this.props.containerCSSId}>
+      <form onSubmit={this.handleSubmit} id={css.newIncomeContainerName}>
         <label>
           usage
-          <input name='usage' className={this.props.usageInputClassName} type='text' value={this.fmt(usage)} onChange={this.updateStringField}/>
+          <input name='usage' className={css.usageInputName} type='text' value={this.fmt(usage)} onChange={this.updateStringField}/>
         </label>
         <label>
           square feet
-          <input name='squareFeet' className={this.props.squareFeetInputClassName} type='number' value={this.fmt(squareFeet)} onChange={this.updateNumericField}/>
+          <input name='squareFeet' className={css.squareFeetInputName} type='number' value={this.fmt(squareFeet)} onChange={this.updateNumericField}/>
         </label>
         <label>
           monthly rent
-          <input name='monthlyRent' className={this.props.monthlyRentInputClassName} type='number' value={this.fmt(monthlyRent)} onChange={this.updateNumericField}/>
+          <input name='monthlyRent' className={css.monthlyRentInputName} type='number' value={this.fmt(monthlyRent)} onChange={this.updateNumericField}/>
         </label>
         <input type='submit' value='Submit'/>
       </form>

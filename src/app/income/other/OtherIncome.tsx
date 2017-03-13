@@ -29,12 +29,11 @@ export class OtherIncome extends React.Component<IIncomeAggregatorProps<IOtherIn
     if (typeof (this.state.monthlyRent) === 'number') {
       this.props.onSave({totalMonthlyIncome: this.state.monthlyRent, ...this.state});
     }
-    this.setState(this.formVals);
+    this.setState(prevState => ({...prevState, ...this.formVals}));
   }
 
   onChange(data: any) {
     this.setState(prevState => ({...prevState, ...data}));
-    console.log("after setting state", this.state)
   }
 
   render() {
@@ -44,14 +43,14 @@ export class OtherIncome extends React.Component<IIncomeAggregatorProps<IOtherIn
         <OtherIncomeForm
           onChange={this.onChange}
           onSubmit={this.onSubmit}
-          containerCSSId={'new-other-income'}
+          css={this.props.css}
           {...this.state}
           />
         {incomes.map(income =>
           <OtherIncomeSource
             key={income.id}
             {...income}
-            containerClassName={'other-income'}
+            {...this.props.css}
             onDelete={this.handleDelete}
             />
         )}
