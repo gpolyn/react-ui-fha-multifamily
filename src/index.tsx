@@ -31,15 +31,21 @@ function addOtherIncome(income: any) {
 };
 
 const root = document.getElementById('root')
+const otherIncomeCSS = {
+  newIncomeContainerName: 'new-other-income',
+  usageInputName: 'other-residential-use usage',
+  squareFeetInputName: 'other-residential-square-feet',
+  monthlyRentInputName: 'other-residential-monthly-rent',
+  incomeSourceContainerName: 'other-residential-income'
+}
 
 function render() {
   ReactDOM.render(
     <OtherIncome
      incomes={otherIncomes}
-     // onDestroy={onDestroy}
      onDestroy={deleteOtherIncome}
-     // onSave={onSave}
      onSave={addOtherIncome}
+     css={otherIncomeCSS}
      />,
      root
   );
