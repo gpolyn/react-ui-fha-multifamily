@@ -15,12 +15,12 @@ export class ApartmentIncomeForm extends React.PureComponent<any, any> {
   }
 
   render() {
-    const {squareFeet, units, bedroomCount, monthlyRent, newIncomeContainerName} = this.props;
+    const {squareFeet, units, bedroomCount, monthlyRent} = this.props;
     const options = [0, 1, 2, 3, 4].map((bedrooms) =>
       <option key={bedrooms} value={bedrooms}>{bedrooms}</option>
     );
     return (
-      <form onSubmit={this.handleSubmit} id={newIncomeContainerName}>
+      <form onSubmit={this.handleSubmit} id='new-apartment-income'>
         <label>
           bedrooms
         <select name='bedroomCount' className='apartment-bedroom-count' value={bedroomCount} onChange={this.updateNumericField}>
