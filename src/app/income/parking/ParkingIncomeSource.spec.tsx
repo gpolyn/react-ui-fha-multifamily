@@ -10,7 +10,7 @@ function setup(propOverrides: any) {
     monthlyFee: 503,
     spaces: 53,
     incomeSourceContainerName: 'parking-income',
-    indoorOrOutdoor: 'indoor'
+    isIndoor: true
   }, propOverrides);
 
   const renderer = TestUtils.createRenderer();
@@ -31,7 +31,7 @@ describe('ParkingIncomeSource', () => {
     const {output, props} = setup({});
     expect(output.type).toBe('div');
     expect(output.props.className).toBe(props.incomeSourceContainerName);
-    const [spaces, indoorOrOutdoor, squareFeet, fee, deleteBtn] = output.props.children;
+    const [spaces, isIndoor, squareFeet, fee, deleteBtn] = output.props.children;
 
     expect(spaces.type).toBe('div');
     expect(spaces.props.className).toBe('spaces');
@@ -40,12 +40,12 @@ describe('ParkingIncomeSource', () => {
     expect(spacesContent.className).toBe('display');
     expect(spacesContent.children).toBe(props.spaces);
 
-    expect(indoorOrOutdoor.type).toBe('div');
-    expect(indoorOrOutdoor.props.className).toBe('indoor-or-outdoor');
-    expect(indoorOrOutdoor.props.children.type).toBe('div');
-    const parkingStyleContent = indoorOrOutdoor.props.children.props;
+    expect(isIndoor.type).toBe('div');
+    expect(isIndoor.props.className).toBe('indoor-or-outdoor');
+    expect(isIndoor.props.children.type).toBe('div');
+    const parkingStyleContent = isIndoor.props.children.props;
     expect(parkingStyleContent.className).toBe('display');
-    expect(parkingStyleContent.children).toBe(props.indoorOrOutdoor);
+    expect(parkingStyleContent.children).toBe('indoor');
 
     expect(squareFeet.type).toBe('div');
     expect(squareFeet.props.className).toBe('total-square-feet');

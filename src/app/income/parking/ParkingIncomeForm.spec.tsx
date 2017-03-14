@@ -59,7 +59,7 @@ describe('ParkingIncomeForm', () => {
     expect(sqFtLabeltext).toBe('total square feet');
     expect(sqFtInput.type).toBe('input');
     expect(sqFtInput.props.className).toBe(props.css.squareFeetInputName);
-    expect(sqFtInput.props.name).toBe('squareFeet');
+    expect(sqFtInput.props.name).toBe('totalSquareFeet');
 
     expect(fee.type).toBe('label');
     const [feeLabelText, feeInput] = fee.props.children;
@@ -93,14 +93,11 @@ describe('ParkingIncomeForm', () => {
     input.props.onChange({target: {}});
     expect(props.onChange).toHaveBeenCalled();
   });
-  xit('should call onChange for indoor/outdoor selector onChange', () => {
+  it('should call onChange for indoor/outdoor selector onChange', () => {
     const {output, props} = setup({});
     const [, indoorOrOutdoor] = output.props.children;
-    indoorOrOutdoor.props.onChange({});
-
-    //expect(indoorOrOutdoor.props).toBe('fart');
-    // const {onChange} = indoorOrOutdoor.props.children;
-    //onChange({target: {}});
+    indoorOrOutdoor.props.onChange({target:{}});
+    expect(props.onChange).toHaveBeenCalled();
   });
   it('should call onChange for totalSquareFeet input onChange', () => {
     const {output, props} = setup({});

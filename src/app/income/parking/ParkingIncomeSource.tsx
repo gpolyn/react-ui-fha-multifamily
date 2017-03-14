@@ -14,7 +14,7 @@ export class ParkingIncomeSource extends React.PureComponent<any, {}> {
         </div>
         <div className='indoor-or-outdoor'>
           <div className='display'>
-            {this.props.indoorOrOutdoor}
+            {this.props.isIndoor ? 'indoor' : 'outdoor'}
           </div>
         </div>
         <div className='total-square-feet'>

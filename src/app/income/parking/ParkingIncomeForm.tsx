@@ -7,6 +7,7 @@ export class ParkingIncomeForm extends React.PureComponent<any, any> {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.updateNumericField = this.updateNumericField.bind(this);
+    this.handleSelectorChange = this.handleSelectorChange.bind(this);
   }
 
   handleSubmit(event: React.FormEvent<any>) {
@@ -22,13 +23,13 @@ export class ParkingIncomeForm extends React.PureComponent<any, any> {
           spaces
           <input name='spaces' className={css.spacesInputName} type='number' value={this.fmt(spaces)} onChange={this.updateNumericField}/>
         </label>
-        <select name='indoorOrOutdoor' className={css.indoorOrOutdoorInputName} value={isIndoor} onChange={this.handleSelectorChange}>
+        <select name='isIndoor' className={css.indoorOrOutdoorInputName} value={isIndoor} onChange={this.handleSelectorChange}>
           <option value='true'>indoor</option>
           <option value='false'>outdoor</option>
         </select>
         <label>
           total square feet
-          <input name='squareFeet' className={css.squareFeetInputName} type='number' value={this.fmt(totalSquareFeet)} onChange={this.updateNumericField}/>
+          <input name='totalSquareFeet' className={css.squareFeetInputName} type='number' value={this.fmt(totalSquareFeet)} onChange={this.updateNumericField}/>
         </label>
         <label>
           monthly fee
@@ -40,7 +41,7 @@ export class ParkingIncomeForm extends React.PureComponent<any, any> {
   }
 
   private handleSelectorChange(e: any) {
-    this.props.onChange({[e.target.name]: e.target.value});
+    this.props.onChange({[e.target.name]: e.target.value == 'true'});
   }
 
   private updateNumericField(e: any) {
