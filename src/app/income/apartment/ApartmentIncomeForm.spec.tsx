@@ -11,9 +11,6 @@ function setup(propOverrides: any) {
     bedroomCount: 3,
     units: 45,
     monthlyRent: 503,
-    css: {
-      newIncomeContainerName: 'new-apartment-income',
-    },
   }, propOverrides);
 
   const renderer = TestUtils.createRenderer();
@@ -33,7 +30,7 @@ describe('ApartmentIncomeForm', () => {
   it('initial render', () => {
     const {output, props} = setup({});
     expect(output.type).toBe('form');
-    expect(output.props.id).toBe(props.newIncomeContainerName);
+    expect(output.props.id).toBe('new-apartment-income');
     const [bedroomCount, units, sqFt, rent, submitInput] = output.props.children;
 
     expect(bedroomCount.type).toBe('label');
