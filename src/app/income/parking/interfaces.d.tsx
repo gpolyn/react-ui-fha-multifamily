@@ -5,6 +5,6 @@ interface IParkingIncome {
   monthlyFee?: number;
 }
 
-interface IParkingIncome2 extends IOtherIncome {
+interface IParkingIncome2 extends IParkingIncome {
   totalMonthlyIncome: number;
 }
