@@ -75,26 +75,14 @@ describe('OtherIncomeForm', () => {
       expect(field.props.children[1].props.value).toBe(expectedFieldVals[idx]);
     });
   });
-  it('should call onChange for usage input onChange', () => {
+  it('should call onChange for input onChange', () => {
     const {output, props} = setup({});
-    const [usage] = output.props.children;
-    const [, input] = usage.props.children;
-    input.props.onChange({target: {}});
-    expect(props.onChange).toHaveBeenCalled();
-  });
-  it('should call onChange for squareFeet input onChange', () => {
-    const {output, props} = setup({});
-    const [, squareFeet] = output.props.children;
-    const [, input] = squareFeet.props.children;
-    input.props.onChange({target: {}});
-    expect(props.onChange).toHaveBeenCalled();
-  });
-  it('should call onChange for monthlyRent input onChange', () => {
-    const {output, props} = setup({});
-    const [, , monthlyRent] = output.props.children;
-    const [, input] = monthlyRent.props.children;
-    input.props.onChange({target: {}});
-    expect(props.onChange).toHaveBeenCalled();
+    for (let i = 0; i < 3; i++){
+      props.onChange.calls.reset();
+      let input = output.props.children[i].props.children[1];
+      input.props.onChange({target: {}});
+      expect(props.onChange).toHaveBeenCalled();
+    }
   });
   it('should call onSubmit for form submit', () => {
     const {props, output} = setup({});
