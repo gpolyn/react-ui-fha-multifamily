@@ -92,7 +92,7 @@ export class MSA extends React.PureComponent<any, any> {
       <div id='metropolitan-area'>
         <label>
           Metropolitan Statistical Area Waiver:
-        <select id='high-cost-setting' name='msa' value={this.props.value} onChange={this.props.onChange}>
+        <select id='high-cost-setting' name='metropolitan_area_waiver' value={this.props.value} onChange={this.props.onChange}>
           {options}
         </select>
         </label>

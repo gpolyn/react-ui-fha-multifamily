@@ -30,7 +30,7 @@ describe('MSA', () => {
     expect(output.props.children.props.children[0]).toBe('Metropolitan Statistical Area Waiver:');
 
     expect(output.props.children.props.children[1].type).toBe('select');
-    expect(output.props.children.props.children[1].props.name).toBe('msa');
+    expect(output.props.children.props.children[1].props.name).toBe('metropolitan_area_waiver');
     expect(output.props.children.props.children[1].props.id).toBe('high-cost-setting');
     expect(output.props.children.props.children[1].props.value).toBe(initialValue);
     expect(output.props.children.props.children[1].props.children.length).toBe(80);
