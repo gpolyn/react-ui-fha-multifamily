@@ -1,29 +1,12 @@
 import * as React from 'react';
 import * as TestUtils from 'react-addons-test-utils';
 import {MSA} from './MSA';
-
-function setup(propOverrides: any) {
-  const props = Object.assign({
-    onChange: jasmine.createSpy('onChange'),
-  }, propOverrides);
-
-  const renderer = TestUtils.createRenderer();
-
-  renderer.render(<MSA {...props}/>);
-
-  let output = renderer.getRenderOutput();
-
-  return {
-    props,
-    output,
-    renderer
-  };
-}
+import setup from '../shared/TestUtils';
 
 describe('MSA', () => {
   it('initial render', () => {
     const initialValue = 'Phildelphia, PA';
-    const {output} = setup({value: initialValue});
+    const {output} = setup({value: initialValue}, MSA);
     expect(output.type).toBe('div');
     expect(output.props.id).toBe('metropolitan-area');
     expect(output.props.children.type).toBe('label');
@@ -39,7 +22,8 @@ describe('MSA', () => {
     );
   });
   it('should call onChange for select onChange', () => {
-    const {output, props} = setup({});
+    const initProps = {onChange: jasmine.createSpy('onChange')};
+    const {output, props} = setup(initProps, MSA);
     output.props.children.props.children[1].props.onChange({});
     expect(props.onChange).toHaveBeenCalled();
   });

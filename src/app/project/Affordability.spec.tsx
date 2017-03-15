@@ -1,25 +1,7 @@
 import * as React from 'react';
 import * as TestUtils from 'react-addons-test-utils';
 import {Affordability} from './Affordability';
-
-function setup(propOverrides: any, componentUnderTest?: any) {
-  const props = Object.assign({
-    onChange: jasmine.createSpy('onChange'),
-  }, propOverrides);
-
-  const renderer = TestUtils.createRenderer();
-
-  //renderer.render(<Affordability {...props}/>);
-  renderer.render(React.createElement(componentUnderTest, {...props}));
-
-  let output = renderer.getRenderOutput();
-
-  return {
-    props,
-    output,
-    renderer
-  };
-}
+import setup from '../shared/TestUtils';
 
 describe('Affordability', () => {
   it('initial render', () => {
@@ -38,7 +20,8 @@ describe('Affordability', () => {
     expect(output.props.children[3].props.children[1].props.checked).toBe(true);
   });
   it('should call onChange for select onChange', () => {
-    const {output, props} = setup({}, Affordability);
+    const initProps = {onChange: jasmine.createSpy('onChange')};
+    const {output, props} = setup(initProps, Affordability);
     [1, 2, 3].forEach( child => {
       props.onChange.calls.reset();
       output.props.children[child].props.children[1].props.onChange(child);
