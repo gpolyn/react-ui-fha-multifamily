@@ -13,3 +13,14 @@ interface IIncomeAggregatorProps<T extends IIncome, U> {
   onDestroy: (id: any) => void | any;
   [propName: string]: any;
 }
+
+interface IEffectiveGrossIncome {
+  grossIncome: number;
+  occupancyPercent?: number;
+  maxOccupancyPercent: number;
+  containerId?: string;
+  egi: number;
+  grossIncomeLabelText: string;
+  effectiveIncomeLabelText: string;
+  onChange: (val: number) => void | any;
+}

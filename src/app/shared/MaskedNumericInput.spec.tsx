@@ -1,6 +1,12 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import * as TestUtils from 'react-addons-test-utils';
 import {MaskedNumericInput} from './MaskedNumericInput';
+
+function squelchTS2345(x: any){
+  const converted = x as React.Component<any,{}>; 
+  return converted;
+}
 
 function setup(propOverrides: any) {
   const props = Object.assign({
@@ -25,6 +31,14 @@ function setup(propOverrides: any) {
 }
 
 describe('ParkingIncomeForm', () => {
+  it('should have certain onChange characteristics', () => {
+    const sp = jasmine.createSpy('onChange');
+    const subj = squelchTS2345(TestUtils.renderIntoDocument(<MaskedNumericInput max={10} onChange={sp}/>));
+    const input = TestUtils.findRenderedDOMComponentWithTag(subj, 'input');
+    const blah = {target: {value: 18}} as React.ChangeEvent<any>;
+    TestUtils.Simulate.change(ReactDOM.findDOMNode(input), blah);
+    expect(sp).toHaveBeenCalledWith(10);
+  })
   it('initial render', () => {
     const {output, props} = setup({});
     expect(output.type).toBe('input');

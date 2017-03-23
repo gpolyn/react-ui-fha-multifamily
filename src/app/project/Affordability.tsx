@@ -1,20 +1,22 @@
 import * as React from 'react';
+import {OverrideableRadioControl} from '../shared/OverrideableRadioControl';
 
 export class Affordability extends React.PureComponent<any, any> {
   render() {
+    const { onChange, value } = this.props;
+    const opts = [
+      {label: 'market', value: 'market', id: 'market'},
+      {label: 'affordable', value: 'affordable', id: 'affordable'},
+      {label: 'subsidized', value: 'subsidized', id: 'subsidized'}
+    ];
     return (
-      <div id='affordability'>
-          apartment rents are&nbsp;
-        <label>market
-          <input type='radio' name='affordability' value='market' checked={this.props.value === 'market' || !this.props.value} id='market' onChange={this.props.onChange}/>
-        </label>
-        <label>affordable
-          <input type='radio' name='affordability' value='affordable' checked={this.props.value === 'affordable'} id='affordable' onChange={this.props.onChange}/>
-        </label>
-        <label>subsidized
-          <input type='radio' name='affordability' value='subsidized' checked={this.props.value === 'subsidized'} id='subsidized' onChange={this.props.onChange}/>
-        </label>
-      </div>
+      <OverrideableRadioControl 
+       id='affordability' 
+       name='affordability'
+       onChange={onChange} 
+       value={value}
+       data-options={opts}
+       />
     );
   }
 }

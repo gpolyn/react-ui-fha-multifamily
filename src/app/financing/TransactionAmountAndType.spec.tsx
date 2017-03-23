@@ -1,9 +1,10 @@
 import * as React from 'react';
 import * as TestUtils from 'react-addons-test-utils';
-import {Affordability} from './Affordability';
+import {TransactionAmountAndType} from './TransactionAmountAndType';
 import setup from '../shared/TestUtils';
 
-describe('Affordability', () => {
+describe('TransactionAmountAndType', () => {
+  /*
   xit('initial render', () => {
     const initialValue = 'subsidized';
     const {output} = setup({value: initialValue}, Affordability);
@@ -28,4 +29,5 @@ describe('Affordability', () => {
       expect(props.onChange).toHaveBeenCalledWith(child);
     });
   });
+  */
 });

@@ -1,0 +1,61 @@
+import * as React from 'react';
+
+export class MaskedNumericIsPercentInput extends React.Component<any, any> {
+
+  private currentValue: number;
+  private isPercent: boolean;
+
+  constructor(props: any) {
+    super(props);
+    this.maskInput = this.maskInput.bind(this);
+    this.isPercentChange = this.isPercentChange.bind(this);
+    this.currentValue = props.value || '';
+    this.isPercent = props.isPercent || false;
+    this.state = {value: props.value || '', isPercent: props.isPercent};
+  }
+
+  protected maskInput(e: any){
+    console.log('maskInput');
+    let val = this.xFormVal(e.target.value);
+    let response = this.props.name ? {[this.props.name]: Number(val), isPercent: this.isPercent} : {value: Number(val), isPercent: this.isPercent};
+    console.log('response', response);
+    // this.props.onChange(response);
+    this.currentValue = val;
+    this.setState(prevState => ({...prevState, value: Number(val)}));
+  }
+
+  private isPercentChange(e: any){
+    const target = e.target
+    const val = target.checked;
+    this.setState(prevState => ({...prevState, isPercent: val}));
+    console.log('isPercentChange state', this.state )
+  }
+
+  private xFormVal(val: number){
+    const min = this.isPercent ? 0 : this.props.min;
+    const max = this.isPercent ? 100 : this.props.max;
+    if (max && val > max){
+      val = min;
+    } else if (min && val < min) {
+      val = min;
+    } 
+    return val
+  }
+
+  protected currentVal(){
+    console.log('currentVal');
+    return this.currentValue;
+  }
+
+  render() {
+    return(
+      <div>
+        <input name={this.props.name} id={this.props.id} value={this.currentVal()} className={this.props.className} onChange={this.maskInput} />
+        <label>
+          {this.props.isPercentLabel}
+        <input type='checkbox' checked={this.state.isPercent} name={this.props.name && this.props.name.concat('-percent')} id={this.props.id && this.props.id.concat('-percent')} onChange={this.isPercentChange}/>
+        </label>
+      </div>
+    );
+  }
+}

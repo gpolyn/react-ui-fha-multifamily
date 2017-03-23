@@ -7,6 +7,16 @@ import * as ReactDOM from 'react-dom';
 import {OtherIncome} from './app/income/other/OtherIncome';
 import {ParkingIncome} from './app/income/parking/ParkingIncome';
 import {ApartmentIncome} from './app/income/apartment/ApartmentIncome';
+import {EffectiveGrossIncome} from './app/egi/EffectiveGrossIncome';
+import {Project} from './app/Project';
+import {TransactionAmountAndType} from './app/financing/TransactionAmountAndType';
+import {FinanceCosts} from './app/financing/FinanceCosts';
+import {MaskedNumericIsPercentInput} from './app/shared/MaskedNumericIsPercentInput';
+import {MaskedNumericInput} from './app/shared/MaskedNumericInput';
+import {withModifiedOnChange} from './app/shared/ModifyChange';
+import {SharedInputContainer} from './app/SharedInputContainer';
+import {SharedCheckboxContainer} from './app/SharedCheckboxContainer';
+import {SharedSelectContainer} from './app/SharedSelectContainer';
 import incomes from './app/Reducers';
 import * as actions from './app/Actions';
 
@@ -49,6 +59,16 @@ function deleteCommercialIncome(id: any) {
   commercialIncomes = incomes(commercialIncomes, actions.deleteIncome(id));
   render();
 };
+
+//let initialFinanceCosts = {term_in_months: 400}
+let initialFinanceCosts = {}
+
+function financeCostsChange(e: any){
+  console.log('financeCostsChange', e);
+  initialFinanceCosts = {...initialFinanceCosts, ...e};
+  console.log('new costs', initialFinanceCosts)
+  render();
+}
 
 function addCommercialIncome(income: any) {
   commercialIncomes = incomes(commercialIncomes, actions.addIncome(income));
@@ -117,17 +137,35 @@ const parkingIncomeCSS = {
   incomeSourceContainerName: 'residential-parking-income'
 };
 
+let totalGrossResidential = 0;
+let residentialOccupancyPercent = 90;
+function residentialOccupancyHandler(newOccupancy: any){
+  residentialOccupancyPercent = newOccupancy;
+  render();
+}
+
+let totalGrossCommercial = 0;
+let commercialOccupancyPercent = 90;
+function commercialOccupancyHandler(newOccupancy: any){
+  commercialOccupancyPercent = newOccupancy;
+  render();
+}
+
 function render() {
-  const totalGrossCommercial = [...commercialIncomes, ...commercialParkingIncomes].map(inc => inc.totalMonthlyIncome).reduce((total, income) =>
+  totalGrossCommercial = [...commercialIncomes, ...commercialParkingIncomes].map(inc => inc.totalMonthlyIncome).reduce((total, income) =>
     total + income,
     0
   );
-  const totalGrossResidential = [...apartmentIncomes, ...otherIncomes, ...parkingIncomes].map(inc => inc.totalMonthlyIncome).reduce((total, income) =>
+  totalGrossResidential = [...apartmentIncomes, ...otherIncomes, ...parkingIncomes].map(inc => inc.totalMonthlyIncome).reduce((total, income) =>
     total + income,
     0
   );
-  console.log('gross residential', totalGrossResidential);
-  console.log('gross commercial', totalGrossCommercial);
+  const residentialEGI = totalGrossResidential * residentialOccupancyPercent/100.0;
+  const commercialEGI = totalGrossCommercial * commercialOccupancyPercent/100.0;
+  const effectiveIncome = residentialEGI + commercialEGI;
+
+  const somethingWild = withModifiedOnChange(SharedInputContainer);
+
   ReactDOM.render(
     <div>
       <ApartmentIncome
@@ -159,6 +197,30 @@ function render() {
        onSave={addOtherIncome}
        css={otherIncomeCSS}
        />
+       <EffectiveGrossIncome
+        grossIncome={totalGrossResidential}
+        occupancyPercent={residentialOccupancyPercent}
+        maxOccupancyPercent={91}
+        onChange={residentialOccupancyHandler}
+        grossIncomeLabelText={'gross residential'}
+        egi = {residentialEGI}
+        effectiveIncomeLabelText={'residential income'}
+        />
+       <EffectiveGrossIncome
+        grossIncome={totalGrossCommercial}
+        occupancyPercent={commercialOccupancyPercent}
+        maxOccupancyPercent={92}
+        egi={commercialEGI}
+        onChange={commercialOccupancyHandler}
+        grossIncomeLabelText={'other gross residential'}
+        effectiveIncomeLabelText={'other residential income'}
+        />
+        ${effectiveIncome}
+        <Project />
+        <FinanceCosts
+          onChange={financeCostsChange}
+          {...initialFinanceCosts}
+          />
      </div>,
      root
   );
