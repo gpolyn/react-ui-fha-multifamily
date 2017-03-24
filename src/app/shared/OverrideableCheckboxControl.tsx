@@ -4,7 +4,7 @@ export class OverrideableCheckboxControl extends React.Component<any, any> {
 
   constructor(props: any) {
     super(props);
-    this.state = {value: this.props.value === true};
+    this.state = {value: props.value === true};
     this.onChange = this.onChange.bind(this);
   }
 
@@ -25,6 +25,23 @@ export class OverrideableCheckboxControl extends React.Component<any, any> {
         this.props.onChange(nextState.value);
       }
     }
+    /*
+    if (nextState.value !== this.state.value){
+      if (nextState.value !== nextProps.value && nextProps.value === this.props.value){
+        this.props.onChange(nextState.value);
+      }
+      return true
+    }
+
+    if (nextProps.value !== this.props.value){
+      if (nextState.value !== nextProps.value){
+        nextState.value = nextProps.value;
+        this.props.onChange(nextState.value);
+        return true
+      }
+      return false;
+    }
+    */
 
     return true;
     
