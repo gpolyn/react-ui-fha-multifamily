@@ -3,6 +3,7 @@ import * as React from 'react';
 interface INumericInputProps {
   max?: number;
   min?: number;
+  value?: number;
   [index: string]: any;
 }
 
@@ -23,6 +24,18 @@ export class MaskedNumericInput extends React.Component<INumericInputProps, any>
       this.xFormVal = this.xFormWithMin;
     } else if (props.max) {
       this.xFormVal = this.xFormWithMax;
+    }
+  }
+
+  componentWillMount(){
+    if (!Number.isNaN(this.props.value)){
+      if (this.props.value < this.props.min){
+        this.state.value = this.props.min;
+        this.props.onChange(this.props.min);
+      } else if (this.props.value > this.props.max){
+        this.state.value = this.props.max;
+        this.props.onChange(this.props.max);
+      }
     }
   }
 
@@ -54,12 +67,14 @@ export class MaskedNumericInput extends React.Component<INumericInputProps, any>
     //console.log("MaskedNumericInput#shouldComponentUpdate", this.props.id, {nxtVal: nextState.value, currVal: this.state.value, nxtPropVal: nextProps.value, currPropsVal: this.props.value});
 
     if (this.props.value !== nextProps.value){
+      /*
       if (typeof(nextProps.value) === 'string') {
         const trimmed = nextProps.value.trim();
         if (trimmed === '' && typeof(nextState.value) === 'number'){
           nextState.value = undefined;
           return true;
         } else {
+        */
           const nextPropsNum = Number(nextProps.value);
           if (!isNaN(nextPropsNum)) {
             const xFormedNewPropVal = this.xFormVal(nextPropsNum);
@@ -71,8 +86,10 @@ export class MaskedNumericInput extends React.Component<INumericInputProps, any>
               return true;
             }
           }
+          /*
         }
       }
+      */
     }
 
     let xFormedStateVal;
