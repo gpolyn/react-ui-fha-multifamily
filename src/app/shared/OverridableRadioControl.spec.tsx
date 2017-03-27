@@ -45,14 +45,12 @@ let node;
 let converted;
 let subj;
 let inputs;
-const nodeId = 'document';
 
 describe('OverrideableRadioControl', () => {
 
   beforeEach(()=>{
     spy = jasmine.createSpy('onChange');
     node = document.createElement('div');
-    node.setAttribute('id', nodeId);
     props = {...basicProps, value: 'three', onChange: spy};
     converted = squelchTS2345(ReactDOM.render(<OverrideableRadioControl {...props} />, node));
     subj = ReactDOM.findDOMNode(converted);
@@ -81,7 +79,7 @@ describe('OverrideableRadioControl', () => {
     const labels = TestUtils.scryRenderedDOMComponentsWithTag(converted, 'label')
     expect(labels.length).toBe(4)
     const parent = TestUtils.findRenderedDOMComponentWithTag(converted, 'div')
-    expect(parent.parentElement.id).toBe(nodeId);
+    expect(parent.parentElement === node).toBe(true);
     expect(parent.className).toBe(props.className)
     expect(parent.id).toBe(props.id)
 
