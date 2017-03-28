@@ -167,8 +167,16 @@ export class MinMaxLimitedNumericInput extends MaskedNumericInput {
 
   constructor(props: INumericInputProps) {
     super(props);
-    console.log('MaskedNumericInput for ', this.props.id, this.props);
     this.xFormVal = this.xFormWithMinAndMax;
+  }
+
+}
+
+export class MinLimitedNumericInput extends MaskedNumericInput {
+
+  constructor(props: INumericInputProps) {
+    super(props);
+    this.xFormVal = this.xFormWithMin;
   }
 
 }
