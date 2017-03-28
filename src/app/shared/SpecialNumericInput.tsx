@@ -26,15 +26,16 @@ let props;
 let node;
 let converted;
 let input;
+const diff = 1;
 
-export function commonNumericInputTests(component: any, initialVal: number, min?: number, max?: number){
+export function commonNumericInputTests(component: any, more){
 
   describe(`${component}`, () => {
 
     beforeEach(()=>{
       spy = jasmine.createSpy('onChange');
       node = document.createElement('div');
-      props = {...basicProps, value: initialVal, onChange: spy, min: min, max: max};
+      props = {...basicProps, ...more, onChange: spy};
       converted = squelchTS2345(ReactDOM.render(React.createElement(component, {...props}), node));
       input = TestUtils.findRenderedDOMComponentWithTag(converted, 'input') as HTMLInputElement;
 
@@ -59,14 +60,27 @@ export function commonNumericInputTests(component: any, initialVal: number, min?
 
 }
 
-export function minTests(component: any, initialVal: number, min?: number, max?: number){
+function errorCheck(component: any, initialVal: number, min?: number, max?: number){
+  if (min && ( initialVal - diff <= min )){
+    throw `minTests for ${component.name}, bad initial value: ${initialVal}`;
+  }
+
+  if (max && ( initialVal + diff >= max)){
+    throw `minTests for ${component.name}, bad initial value: ${initialVal}`;
+  }
+}
+
+export function minTests(component: any, more){
+
+  errorCheck(component, more.value, more.min, more.max);
 
   describe(`${component}`, () => {
 
     beforeEach(()=>{
       spy = jasmine.createSpy('onChange');
       node = document.createElement('div');
-      props = {...basicProps, value: initialVal, onChange: spy, min: min, max: max};
+      //props = {...basicProps, onChange: spy, value: initialVal,  min: min, max: max};
+      props = {...basicProps, ...more, onChange: spy};
       converted = squelchTS2345(ReactDOM.render(React.createElement(component, {...props}), node));
       input = TestUtils.findRenderedDOMComponentWithTag(converted, 'input') as HTMLInputElement;
 
@@ -74,7 +88,7 @@ export function minTests(component: any, initialVal: number, min?: number, max?:
 
     it('should have min input value when initial props val < props.min', ()=>{
       const xnode = document.createElement('div');
-      const invalidVal = props.min - 1;
+      const invalidVal = props.min - diff;
       const xprops = {...basicProps, value: invalidVal, onChange: spy};
       const xconverted = squelchTS2345(ReactDOM.render(React.createElement(component, {...xprops}), xnode));
       const xinput = TestUtils.findRenderedDOMComponentWithTag(xconverted, 'input')
@@ -87,14 +101,14 @@ export function minTests(component: any, initialVal: number, min?: number, max?:
     });
 
     it('should have expected effects when changed value > min and != props.value', ()=>{
-      const changeVal = 56.7;
+      const changeVal = props.value + diff;
       TestUtils.Simulate.change(input, getChangeEvent(String(changeVal)));
       expect(spy).toHaveBeenCalledWith(changeVal);
       expect(input.value).toBe(String(changeVal));
     });
 
     it('should have expected effects when changed value > min and == props.value', ()=>{
-      const changeVal = 56.7;
+      const changeVal = props.value + diff;
       TestUtils.Simulate.change(input, getChangeEvent(String(changeVal)));
       expect(input.value).toBe(String(changeVal));
       expect(converted.props.value).toBe(props.value);
@@ -106,7 +120,7 @@ export function minTests(component: any, initialVal: number, min?: number, max?:
     });
 
     it('should have input value == min for changed value < min when entered', ()=>{
-      const invalidVal = '2';
+      const invalidVal = String(props.min - 1);
       TestUtils.Simulate.change(input, getChangeEvent(invalidVal));
       expect(spy).toHaveBeenCalledWith(props.min);
       expect(input.value).toBe(invalidVal);
@@ -118,7 +132,7 @@ export function minTests(component: any, initialVal: number, min?: number, max?:
     });
 
     it('should have expected effect when valid changed props.value != control value', () => {
-      const newPropsValue = props.value + 5;
+      const newPropsValue = props.value + diff;
       spyOn(component.prototype, 'render').and.callThrough();
       (ReactDOM.render(React.createElement(component, {...props, value: newPropsValue}), node));
       expect(component.prototype.render).toHaveBeenCalled();
@@ -127,7 +141,7 @@ export function minTests(component: any, initialVal: number, min?: number, max?:
     });
 
     it('should have expected effect for new invalid props.value', () => {
-      const newPropsValue = props.min - 1;
+      const newPropsValue = props.min - diff;
       spyOn(component.prototype, 'render').and.callThrough();
       (ReactDOM.render(React.createElement(component, {...props, value: newPropsValue}), node));
       expect(component.prototype.render).toHaveBeenCalled();
@@ -136,7 +150,7 @@ export function minTests(component: any, initialVal: number, min?: number, max?:
     });
 
     it('should have expected effect when changed props.value == control value', () => {
-      const newValue = props.value + 5;
+      const newValue = props.value + diff;
       TestUtils.Simulate.change(input, getChangeEvent(newValue));
       expect(input.value).toBe(String(newValue));
       expect(converted.state.value).toBe(newValue);
@@ -149,7 +163,7 @@ export function minTests(component: any, initialVal: number, min?: number, max?:
     });
 
     it('should have input value == min for changed value < min when blurred', ()=>{
-      const invalidVal = '2';
+      const invalidVal = String(props.min - diff);
       TestUtils.Simulate.change(input, getChangeEvent(invalidVal));
       expect(spy).toHaveBeenCalledWith(props.min);
       expect(input.value).toBe(invalidVal);
@@ -163,14 +177,16 @@ export function minTests(component: any, initialVal: number, min?: number, max?:
   });
 }
 
-export function maxTests(component: any, initialVal: number, min?: number, max?: number){
+export function maxTests(component: any, more){
+
+  errorCheck(component, more.value, more.min, more.max);
 
   describe(`${component}`, () => {
 
     beforeEach(()=>{
       spy = jasmine.createSpy('onChange');
       node = document.createElement('div');
-      props = {...basicProps, value: initialVal, onChange: spy, min: min, max: max};
+      props = {...basicProps, ...more, onChange: spy};
       converted = squelchTS2345(ReactDOM.render(React.createElement(component, {...props}), node));
       const subj = ReactDOM.findDOMNode(converted);
       input = TestUtils.findRenderedDOMComponentWithTag(converted, 'input') as HTMLInputElement;
@@ -178,7 +194,7 @@ export function maxTests(component: any, initialVal: number, min?: number, max?:
 
     it('should have max input value when initial props val > props.max', ()=>{
       const xnode = document.createElement('div');
-      const invalidVal = props.max + 1;
+      const invalidVal = props.max + diff;
       const xprops = {...props, value: invalidVal, onChange: spy};
       const xconverted = squelchTS2345(ReactDOM.render(React.createElement(component, {...xprops}), xnode));
       const xsubj = ReactDOM.findDOMNode(xconverted);
@@ -192,14 +208,14 @@ export function maxTests(component: any, initialVal: number, min?: number, max?:
     });
 
     it('should have expected effects when changed value < max and != props.value', ()=>{
-      const changeVal = props.max - 1;
+      const changeVal = props.max - diff;
       TestUtils.Simulate.change(input, getChangeEvent(String(changeVal)));
       expect(spy).toHaveBeenCalledWith(changeVal);
       expect(input.value).toBe(String(changeVal));
     });
 
     it('should have expected effects when changed value < max and == props.value', ()=>{
-      const changeVal = props.max - 1;
+      const changeVal = props.max - diff;
       TestUtils.Simulate.change(input, getChangeEvent(String(changeVal)));
       expect(input.value).toBe(String(changeVal));
       expect(converted.props.value).toBe(props.value);
@@ -211,7 +227,7 @@ export function maxTests(component: any, initialVal: number, min?: number, max?:
     });
 
     it('should have input value == max for changed value > max when entered', ()=>{
-      const invalidVal = String(props.max + 1);
+      const invalidVal = String(props.max + diff);
       TestUtils.Simulate.change(input, getChangeEvent(invalidVal));
       expect(spy).toHaveBeenCalledWith(props.max);
       expect(input.value).toBe(invalidVal);
@@ -223,7 +239,7 @@ export function maxTests(component: any, initialVal: number, min?: number, max?:
     });
 
     it('should have expected effect when valid changed props.value != control value', () => {
-      const newPropsValue = props.max - 1;
+      const newPropsValue = props.max - diff;
       spyOn(component.prototype, 'render').and.callThrough();
       (ReactDOM.render(React.createElement(component, {...props, value: newPropsValue}), node));
       expect(component.prototype.render).toHaveBeenCalled();
@@ -232,7 +248,7 @@ export function maxTests(component: any, initialVal: number, min?: number, max?:
     });
 
     it('should have expected effect for new invalid props.value', () => {
-      const newPropsValue = props.max + 1;
+      const newPropsValue = props.max + diff;
       spyOn(component.prototype, 'render').and.callThrough();
       (ReactDOM.render(React.createElement(component, {...props, value: newPropsValue}), node));
       expect(component.prototype.render).toHaveBeenCalled();
@@ -241,7 +257,7 @@ export function maxTests(component: any, initialVal: number, min?: number, max?:
     });
 
     it('should have expected effect when changed props.value == control value', () => {
-      const newValue = props.max - 1;
+      const newValue = props.max - diff;
       TestUtils.Simulate.change(input, getChangeEvent(newValue));
       expect(input.value).toBe(String(newValue));
       expect(converted.state.value).toBe(newValue);
@@ -254,7 +270,7 @@ export function maxTests(component: any, initialVal: number, min?: number, max?:
     });
 
     it('should have input value == max for changed value > max when blurred', ()=>{
-      const invalidVal = String(props.max + 1);
+      const invalidVal = String(props.max + diff);
       TestUtils.Simulate.change(input, getChangeEvent(invalidVal));
       expect(spy).toHaveBeenCalledWith(props.max);
       expect(input.value).toBe(invalidVal);

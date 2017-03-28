@@ -1,11 +1,15 @@
-import {MaskedNumericInput, MinMaxLimitedNumericInput} from './MaskedNumericInput';
-//import {minTests, maxTests, commonNumericInputTests} from './SpecialNumericInput.spec';
+import {MaskedNumericInput, MinMaxLimitedNumericInput, MinLimitedNumericInput} from './MaskedNumericInput';
 import {minTests, maxTests, commonNumericInputTests} from './SpecialNumericInput';
-//import {maxTests} from './MaxNumericInputTests';
 
-minTests(MaskedNumericInput, 40, 23.5);
-commonNumericInputTests(MaskedNumericInput, 40, 23.5);
+const minProps = {value: 40, min: 23.5};
+const maxProps = {...minProps, max: 100.25};
 
-minTests(MinMaxLimitedNumericInput, 40, 23.5, 100);
-maxTests(MinMaxLimitedNumericInput, 40, 23.5, 100);
-commonNumericInputTests(MinMaxLimitedNumericInput, 40, 23.5, 100);
+minTests(MaskedNumericInput, minProps);
+commonNumericInputTests(MaskedNumericInput, minProps);
+
+minTests(MinLimitedNumericInput, minProps);
+commonNumericInputTests(MinLimitedNumericInput, minProps);
+
+minTests(MinMaxLimitedNumericInput, maxProps);
+maxTests(MinMaxLimitedNumericInput, maxProps);
+commonNumericInputTests(MinMaxLimitedNumericInput, maxProps);
