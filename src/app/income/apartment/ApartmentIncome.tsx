@@ -18,7 +18,7 @@ export class ApartmentIncome extends React.Component<IIncomeAggregatorProps<IApa
     this.onChange = this.onChange.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    this.formVals = {...this.formVals, ...this.props.initialValues};
+    this.formVals = {...this.formVals, ...props.initialValues};
     this.state = {...this.formVals};
   }
 
@@ -41,6 +41,7 @@ export class ApartmentIncome extends React.Component<IIncomeAggregatorProps<IApa
 
   render() {
     const {incomes} = this.props;
+    console.log('ApartmentIncome#render', incomes);
     return (
       <section className='apartment-income'>
         <ApartmentIncomeForm

@@ -20,6 +20,7 @@ const inputs = TestUtils.scryRenderedDOMComponentsWithTag(financing, 'input')
 
 describe('OverrideableCheckboxControl', () => {
 
+  /*
   it('should have expected initial setup', () => {
     const props = {className: 'some-class', id: 'some-id'};
     const subj = squelchTS2345(TestUtils.renderIntoDocument(<OverrideableCheckboxControl { ...props} />));
@@ -28,6 +29,7 @@ describe('OverrideableCheckboxControl', () => {
     expect(input.id).toBe(props.id);
     expect(input.checked).toBe(false);
   });
+  */
 
   it('should have expected initial setup', () => {
     const props = {className: 'some-class', id: 'some-id'};

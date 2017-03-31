@@ -40,10 +40,11 @@ export class MaskedNumericInput extends React.Component<INumericInputProps, any>
   }
 
   protected maskInput(e: any){
+    //console.log('MaskedNumericInput#maskInput')
     let val = (e.target.value);
     if (val !=='' && val !== undefined){
       val = Number(val);
-    }
+    } 
     this.setState(prevState => ({...prevState, value: val}));
   }
 
@@ -65,72 +66,56 @@ export class MaskedNumericInput extends React.Component<INumericInputProps, any>
 
   shouldComponentUpdate(nextProps, nextState){
     //console.log("MaskedNumericInput#shouldComponentUpdate", this.props.id, {nxtVal: nextState.value, currVal: this.state.value, nxtPropVal: nextProps.value, currPropsVal: this.props.value});
+    
+    const propsAreSame = nextProps.value === this.props.value;
+    const stateIsSame = nextState.value === this.state.value;
 
-    if (this.props.value !== nextProps.value){
-      /*
-      if (typeof(nextProps.value) === 'string') {
-        const trimmed = nextProps.value.trim();
-        if (trimmed === '' && typeof(nextState.value) === 'number'){
-          nextState.value = undefined;
-          return true;
-        } else {
-        */
-          const nextPropsNum = Number(nextProps.value);
-          if (!isNaN(nextPropsNum)) {
-            const xFormedNewPropVal = this.xFormVal(nextPropsNum);
-            if (xFormedNewPropVal !== nextPropsNum) {
-              this.props.onChange(xFormedNewPropVal);
-            }
-            if (nextState.value !== xFormedNewPropVal){
-              nextState.value = xFormedNewPropVal;
-              return true;
-            }
-          }
-          /*
-        }
-      }
-      */
+    if (propsAreSame && stateIsSame){
+      return false;
     }
 
-    let xFormedStateVal;
+    if (!stateIsSame){
 
-    if (nextState.value === ''){
-      xFormedStateVal = '';
-    } else {
-      xFormedStateVal = this.xFormVal(nextState.value);
-      if (Number.isNaN(xFormedStateVal)){
+      if (nextState.value === ''){
+        if (nextProps.value !== ''){
+          this.props.onChange('');
+        }
+        return true;
+      }
+
+      const xFormedVal = this.xFormVal(nextState.value);
+
+      if (xFormedVal !== this.state.value){
+        nextState.value = xFormedVal;
+        if (nextProps.value !== xFormedVal){
+          this.props.onChange(xFormedVal);
+        }
+        return true;
+      } else if (xFormedVal !== nextProps.value){
+        this.props.onChange(xFormedVal);
         return false;
       }
     }
 
-    if (this.state.value !== xFormedStateVal) {
-      this.state.value = xFormedStateVal;
-
-      if (xFormedStateVal !== nextProps.value){
-        if (xFormedStateVal === ''){
-          this.props.onChange(xFormedStateVal);
+    if (!propsAreSame){
+      if (nextProps.value === ''){
+        if (nextState.value !== ''){
+          nextState.value = '';
+          if (this.state.value !== ''){
+            this.props.onChange('');
+          }
           return true;
         }
-
-        if (typeof(nextProps.value) === 'string') {
-
-          const trimmed = nextProps.value.trim();
-
-          if (trimmed === '') {
-            this.props.onChange(trimmed);
-          } else {
-            const nextPropsNum = Number(nextProps.value);
-
-            if (!isNaN(nextPropsNum) && (nextPropsNum !== xFormedStateVal)) {
-              this.props.onChange(xFormedStateVal);
-            }
-          }
-        } else if (nextProps.value !== xFormedStateVal) {
-          this.props.onChange(xFormedStateVal);
-        }
+        return false;
       }
 
-      return true;
+      const xFormedProp = this.xFormVal(nextProps.value);
+      if (xFormedProp != nextState.value){
+        nextState.value = xFormedProp;
+        this.props.onChange(xFormedProp);
+        return true;
+      }
+
     }
 
     return false;

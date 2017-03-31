@@ -16,11 +16,15 @@ interface IIncomeAggregatorProps<T extends IIncome, U> {
 
 interface IEffectiveGrossIncome {
   grossIncome: number;
+  name?: string;
   occupancyPercent?: number;
   maxOccupancyPercent: number;
   containerId?: string;
+  inputClassName?: string;
+  inputId?: string;
   egi: number;
-  grossIncomeLabelText: string;
-  effectiveIncomeLabelText: string;
-  onChange: (val: number) => void | any;
+  type: string;
+  grossIncomeLabelText?: string;
+  effectiveIncomeLabelText?: string;
+  onChange: (val: any) => void | any;
 }

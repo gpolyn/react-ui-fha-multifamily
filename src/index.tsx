@@ -4,15 +4,20 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
 // import {Main} from './app/main';
+import {App} from './app/containers/App';
 import {OtherIncome} from './app/income/other/OtherIncome';
 import {ParkingIncome} from './app/income/parking/ParkingIncome';
 import {ApartmentIncome} from './app/income/apartment/ApartmentIncome';
 import {EffectiveGrossIncome} from './app/egi/EffectiveGrossIncome';
-import {Project} from './app/Project';
+//import {Project} from './app/Project';
+import {Project} from './app/views/Project';
+import {SharedInput2} from './app/shared/SharedInput2';
+import {PercentableInput} from './app/shared/PercentableInput';
+import {OverrideableCheckboxControl} from './app/shared/OverrideableCheckboxControl';
 import {TransactionAmountAndType} from './app/financing/TransactionAmountAndType';
 import {FinanceCosts} from './app/financing/FinanceCosts';
 import {MaskedNumericIsPercentInput} from './app/shared/MaskedNumericIsPercentInput';
-import {MaskedNumericInput} from './app/shared/MaskedNumericInput';
+import {MaskedNumericInput, MinLimitedNumericInput} from './app/shared/MaskedNumericInput';
 import {withModifiedOnChange} from './app/shared/ModifyChange';
 import {SharedInputContainer} from './app/SharedInputContainer';
 import {SharedCheckboxContainer} from './app/SharedCheckboxContainer';
@@ -144,6 +149,10 @@ function residentialOccupancyHandler(newOccupancy: any){
   render();
 }
 
+function onChange(data: any){
+  console.log(data);
+}
+
 let totalGrossCommercial = 0;
 let commercialOccupancyPercent = 90;
 function commercialOccupancyHandler(newOccupancy: any){
@@ -168,6 +177,14 @@ function render() {
 
   ReactDOM.render(
     <div>
+        <App />
+     </div>,
+     root
+  );
+}
+
+render();
+/*
       <ApartmentIncome
        incomes={apartmentIncomes}
        onDestroy={deleteApartmentIncome}
@@ -197,33 +214,23 @@ function render() {
        onSave={addOtherIncome}
        css={otherIncomeCSS}
        />
-       <EffectiveGrossIncome
-        grossIncome={totalGrossResidential}
-        occupancyPercent={residentialOccupancyPercent}
-        maxOccupancyPercent={91}
-        onChange={residentialOccupancyHandler}
-        grossIncomeLabelText={'gross residential'}
-        egi = {residentialEGI}
-        effectiveIncomeLabelText={'residential income'}
-        />
-       <EffectiveGrossIncome
-        grossIncome={totalGrossCommercial}
-        occupancyPercent={commercialOccupancyPercent}
-        maxOccupancyPercent={92}
-        egi={commercialEGI}
-        onChange={commercialOccupancyHandler}
-        grossIncomeLabelText={'other gross residential'}
-        effectiveIncomeLabelText={'other residential income'}
-        />
-        ${effectiveIncome}
-        <Project />
-        <FinanceCosts
-          onChange={financeCostsChange}
-          {...initialFinanceCosts}
-          />
-     </div>,
-     root
-  );
-}
-
-render();
+<EffectiveGrossIncome
+grossIncome={totalGrossResidential}
+occupancyPercent={residentialOccupancyPercent}
+maxOccupancyPercent={91}
+onChange={residentialOccupancyHandler}
+grossIncomeLabelText={'gross residential'}
+egi = {residentialEGI}
+effectiveIncomeLabelText={'residential income'}
+/>
+<EffectiveGrossIncome
+grossIncome={totalGrossCommercial}
+occupancyPercent={commercialOccupancyPercent}
+maxOccupancyPercent={92}
+egi={commercialEGI}
+onChange={commercialOccupancyHandler}
+grossIncomeLabelText={'other gross residential'}
+effectiveIncomeLabelText={'other residential income'}
+/>
+${effectiveIncome}
+*/

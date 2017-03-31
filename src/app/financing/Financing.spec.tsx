@@ -32,8 +32,8 @@ describe('FinanceCosts', () => {
     expect(minMaxInputs.length).toBe(2);
   });
 
-  it('should have 11 MaskedNumericInput components', () => {
-    expect(maskedNumericInputs.length).toBe(11);
+  it('should have 12 MaskedNumericInput components', () => {
+    expect(maskedNumericInputs.length).toBe(12);
   });
 
   it('should have 1 MaskedNumericIsPercentInput components', () => {
@@ -218,7 +218,7 @@ describe('FinanceCosts', () => {
 function inputStateChangeAsExpected(id: string, name: string, expectedValue: any){
   const candidates = inputs.filter(ele => ele.id === id);
   const [subject] = candidates;
-  expect(financing[name]).not.toBe(expectedValue);
+  expect(financing.state[name]).not.toBe(expectedValue);
   TestUtils.Simulate.change(ReactDOM.findDOMNode(subject), getChangeEvent(expectedValue));
   expect(financing.state[name]).toBe(expectedValue);
 }

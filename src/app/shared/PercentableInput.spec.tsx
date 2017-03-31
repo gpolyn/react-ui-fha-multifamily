@@ -34,8 +34,7 @@ describe('PercentableInput', () => {
 
   it('should initially render MinMaxLimitedNumericInput if props.isPercent == true', ()=>{
     props = {...basicProps, value: 75.8, isPercent: true};
-    const child = <MinLimitedNumericInput min={10} />;
-    const subj = <PercentableInput {...props}>child</PercentableInput>;
+    const subj = <PercentableInput {...props}><MinLimitedNumericInput min={10} /></PercentableInput>;
     converted = squelchTS2345(ReactDOM.render(subj, node));
     const comp = TestUtils.findRenderedComponentWithType(converted, MinMaxLimitedNumericInput);
     expect(comp).not.toBe(null);
