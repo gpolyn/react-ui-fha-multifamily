@@ -7,6 +7,9 @@ import {MaskedNumericInput, MinMaxLimitedNumericInput, MinLimitedNumericInput} f
 import {MaskedNumericIsPercentInput} from '../shared/MaskedNumericIsPercentInput';
 import {DollarSpan} from '../shared/DollarSpan';
 import {App} from './App';
+import {ApartmentIncome} from '../income/apartment/ApartmentIncome';
+import {OtherIncome} from '../income/other/OtherIncome';
+import {ParkingIncome} from '../income/parking/ParkingIncome';
 import * as ReactDOM from 'react-dom';
 
 const someNumber = 18;
@@ -47,6 +50,18 @@ describe('App', () => {
     it(`should have ${totalNumberOfInputs} inputs`, () => {
       expect(inputs.length).toBe(totalNumberOfInputs);
     })
+
+    it('should have 1 ApartmentIncome component', ()=>{
+      expect(TestUtils.findRenderedComponentWithType(app, ApartmentIncome)).not.toBe(null);
+    });
+
+    it('should have 2 OtherIncome components', ()=>{
+      expect(TestUtils.scryRenderedComponentsWithType(app, OtherIncome).length).toBe(2);
+    });
+
+    it('should have 2 Parking components', ()=>{
+      expect(TestUtils.scryRenderedComponentsWithType(app, ParkingIncome).length).toBe(2);
+    });
 
     it(`should have ${totalNumberOfMinMaxLimitedInputs} MinMaxLimitedNumericInput components`, () => {
       expect(minMaxInputs.length).toBe(totalNumberOfMinMaxLimitedInputs);
@@ -173,6 +188,98 @@ describe('App', () => {
       overrideableCheckboxControls = TestUtils.scryRenderedComponentsWithType(app, OverrideableCheckboxControl);
       selectControls = TestUtils.scryRenderedComponentsWithType(app, OverrideableSelectControl);
     });
+
+    it('should update state with new apartment income', () => {
+      const domApp = ReactDOM.findDOMNode(app);
+      const units = domApp.querySelector('input.apartment-unit-count');
+      (units as HTMLInputElement).value = String(someNumber);
+      TestUtils.Simulate.change(units);
+      const monthlyRentField = domApp.querySelector('input.apartment-monthly-rent');
+      const rentAmount = someNumber * 2;
+      (monthlyRentField as HTMLInputElement).value = String(rentAmount);
+      TestUtils.Simulate.change(monthlyRentField);
+      const fm = domApp.querySelector('form#new-apartment-income');
+      TestUtils.Simulate.submit(fm);
+      expect(app.state.apartmentIncomes.length).toBe(1);
+      const income = app.state.apartmentIncomes[0];
+      expect(income.monthlyRent).toBe(rentAmount)
+      expect(income.units).toBe(someNumber)
+      const btn = domApp.querySelector('button.apartment-income-destroy');
+      TestUtils.Simulate.click(btn);
+      expect(app.state.apartmentIncomes.length).toBe(0);
+    })
+
+    it('should update state with new other residential income', () => {
+      const domApp = ReactDOM.findDOMNode(app);
+      const monthlyRentField = domApp.querySelector('input.other-residential-monthly-rent');
+      const rentAmount = someNumber * 2;
+      (monthlyRentField as HTMLInputElement).value = String(rentAmount);
+      TestUtils.Simulate.change(monthlyRentField);
+      const fm = domApp.querySelector('form#new-other-income');
+      TestUtils.Simulate.submit(fm);
+      expect(app.state.otherIncomes.length).toBe(1);
+      const income = app.state.otherIncomes[0];
+      expect(income.monthlyRent).toBe(rentAmount)
+      const btn = domApp.querySelector('button.simple-income-source-destroy');
+      TestUtils.Simulate.click(btn);
+      expect(app.state.apartmentIncomes.length).toBe(0);
+    })
+
+    it('should update state with new commercial income', () => {
+      const domApp = ReactDOM.findDOMNode(app);
+      const commercialRent = domApp.querySelector('input.commercial-monthly-rent');
+      const rentAmount = someNumber * 2;
+      (commercialRent as HTMLInputElement).value = String(rentAmount);
+      TestUtils.Simulate.change(commercialRent);
+      const fm = domApp.querySelector('form#new-commercial-income');
+      TestUtils.Simulate.submit(fm);
+      expect(app.state.commercialIncomes.length).toBe(1);
+      const income = app.state.commercialIncomes[0];
+      expect(income.monthlyRent).toBe(rentAmount)
+      const btn = domApp.querySelector('.commercial-income button.simple-income-source-destroy');
+      TestUtils.Simulate.click(btn);
+      expect(app.state.commercialIncomes.length).toBe(0);
+    })
+
+    it('should update state with commercial parking income', () => {
+      const domApp = ReactDOM.findDOMNode(app);
+      const spaces = domApp.querySelector('input.commercial-parking-spaces');
+      (spaces as HTMLInputElement).value = String(someNumber);
+      TestUtils.Simulate.change(spaces);
+      const rent = domApp.querySelector('input.commercial-parking-monthly-fee');
+      const rentAmount = someNumber * 2;
+      (rent as HTMLInputElement).value = String(rentAmount);
+      TestUtils.Simulate.change(rent);
+      const fm = domApp.querySelector('form#new-commercial-parking-income');
+      TestUtils.Simulate.submit(fm);
+      expect(app.state.commercialParkingIncomes.length).toBe(1);
+      const income = app.state.commercialParkingIncomes[0];
+      expect(income.monthlyFee).toBe(rentAmount)
+      expect(income.spaces).toBe(someNumber)
+      const btn = domApp.querySelector('.commercial-parking-income .parking-income-destroy');
+      TestUtils.Simulate.click(btn);
+      expect(app.state.commercialParkingIncomes.length).toBe(0);
+    })
+
+    it('should update state with new residential parking income', () => {
+      const domApp = ReactDOM.findDOMNode(app);
+      const spaces = domApp.querySelector('input.residential-parking-spaces');
+      (spaces as HTMLInputElement).value = String(someNumber);
+      TestUtils.Simulate.change(spaces);
+      const rent = domApp.querySelector('input.residential-parking-monthly-fee');
+      const rentAmount = someNumber * 2;
+      (rent as HTMLInputElement).value = String(rentAmount);
+      TestUtils.Simulate.change(rent);
+      const fm = domApp.querySelector('form#new-residential-parking-income');
+      TestUtils.Simulate.submit(fm);
+      expect(app.state.parkingIncomes.length).toBe(1);
+      const income = app.state.parkingIncomes[0];
+      expect(income.monthlyFee).toBe(rentAmount)
+      expect(income.spaces).toBe(someNumber)
+      const btn = domApp.querySelector('.residential-parking-income .parking-income-destroy');
+      TestUtils.Simulate.click(btn);
+      expect(app.state.parkingIncomes.length).toBe(0);
+    })
 
     it('should have input#market that changes app state', () =>{
       inputStateChangeAsExpected('market', 'affordability', 'market');

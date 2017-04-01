@@ -163,10 +163,10 @@ export class App extends React.Component<any, any> {
     const operatingIncome = OperatingIncome({...this.state, ...opIncProps, onChange: this.onChange});
     const parking = (collection: any, collectionName: string, css: any) => {
       return (<ParkingIncome
-       incomes={this.state.parkingIncomes}
-       onDestroy={id => this.updateIncomes('parkingIncomes', actions.deleteIncome(id))}
-       onSave={dta => this.updateIncomes('parkingIncomes', actions.addIncome(dta))}
-       css={parkingIncomeCSS}
+       incomes={collection}
+       onDestroy={id => this.updateIncomes(collectionName, actions.deleteIncome(id))}
+       onSave={dta => this.updateIncomes(collectionName, actions.addIncome(dta))}
+       css={css}
        />);
     };
     const other = (collection: any, collectionName: string, css: any) => {
@@ -190,7 +190,7 @@ export class App extends React.Component<any, any> {
          commercial parking
          {parking(this.state.commercialParkingIncomes, 'commercialParkingIncomes', commercialParkingIncomeCSS)}
          commercial income
-         {other(this.state.commercialIncomes, 'commercialIncomes', commercialParkingIncomeCSS)}
+         {other(this.state.commercialIncomes, 'commercialIncomes', commercialIncomeCSS)}
          other income
          {other(this.state.otherIncomes, 'otherIncomes', otherIncomeCSS)}
          {operatingIncome}           
