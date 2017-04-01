@@ -198,7 +198,7 @@ describe('App', () => {
       const rentAmount = someNumber * 2;
       (monthlyRentField as HTMLInputElement).value = String(rentAmount);
       TestUtils.Simulate.change(monthlyRentField);
-      const fm = domApp.querySelector('form#new-apartment-income');
+      const fm = domApp.querySelector('tr#new-apartment-income form');
       TestUtils.Simulate.submit(fm);
       expect(app.state.apartmentIncomes.length).toBe(1);
       const income = app.state.apartmentIncomes[0];

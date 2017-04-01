@@ -20,29 +20,29 @@ export class ApartmentIncomeForm extends React.PureComponent<any, any> {
       <option key={bedrooms} value={bedrooms}>{bedrooms}</option>
     );
     return (
-      <form onSubmit={this.handleSubmit} id='new-apartment-income'>
-        <label>
-          bedrooms
-        <select name='bedroomCount' className='apartment-bedroom-count' value={bedroomCount} onChange={this.updateNumericField}>
-          {options}
-        </select>
-        </label>
-        <label>
-          units
-          <input name='units' className='apartment-unit-count' type='number' value={this.fmt(units)} onChange={this.updateNumericField}/>
-        </label>
-        <label>
-          square feet
-          <input name='squareFeet' className='apartment-square-feet' type='number' value={this.fmt(squareFeet)} onChange={this.updateNumericField}/>
-        </label>
-        <label>
-          monthly rent
-          <input name='monthlyRent' className='apartment-monthly-rent' type='number' value={this.fmt(monthlyRent)} onChange={this.updateNumericField}/>
-        </label>
-        <div className='add'>
-          <input className='add-apartment-income add-item' type='submit' value='Submit'/>
-        </div>
-      </form>
+        <tr id='new-apartment-income'>
+          <form onSubmit={this.handleSubmit}>
+            <td>
+              <select name='bedroomCount' className='apartment-bedroom-count' value={bedroomCount} onChange={this.updateNumericField}>
+                {options}
+              </select>
+            </td>
+            <td>
+              <input name='units' className='apartment-unit-count' type='number' value={this.fmt(units)} onChange={this.updateNumericField}/>
+            </td>
+            <td>
+              <input name='squareFeet' className='apartment-square-feet' type='number' value={this.fmt(squareFeet)} onChange={this.updateNumericField}/>
+            </td>
+            <td>
+              <input name='monthlyRent' className='apartment-monthly-rent' type='number' value={this.fmt(monthlyRent)} onChange={this.updateNumericField}/>
+            </td>
+            <td>
+              <div className='add'>
+                <input className='add-apartment-income add-item' type='submit' value='Submit'/>
+              </div>
+            </td>
+          </form>
+        </tr>
     );
   }
 
