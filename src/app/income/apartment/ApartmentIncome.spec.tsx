@@ -49,12 +49,12 @@ function setup(propOverrides) {
 describe('ApartmentIncome', () => {
   it('initial render', () => {
     const {output} = setup({});
-    expect(output.type).toBe('section');
-    expect(output.props.className).toBe('apartment-income');
+    expect(output.type).toBe('table');
+    expect(output.props.id).toBe('apartment-income');
   });
   it('should display all incomes as ApartmentIncomeSource instances', () => {
     const {output, props} = setup({});
-    const [, apartmentIncomeSources] = output.props.children;
+    const apartmentIncomeSources = output.props.children[3].props.children[1];
     expect(apartmentIncomeSources.length).toBe(2);
     apartmentIncomeSources.forEach((income, i) => {
       let tmp = props.incomes[i];
@@ -68,7 +68,7 @@ describe('ApartmentIncome', () => {
   });
   it('should call onDestroy from income delete', () => {
     const {props, output} = setup({});
-    const [, incomeSources] = output.props.children;
+    const incomeSources = output.props.children[3].props.children[1];
     const [firstIncomeSrc, secondIncomeSrc] = incomeSources;
     secondIncomeSrc.props.onDelete(0);
     expect(props.onDestroy.calls.mostRecent().args).toEqual([0]);
@@ -77,7 +77,7 @@ describe('ApartmentIncome', () => {
   });
   it('should present props.initialValues in new income form, when provided ', () => {
     const {output, props} = setup({});
-    const [newIncome] = output.props.children;
+    const newIncome = output.props.children[3].props.children[0];
     const {units, squareFeet, monthlyRent, bedroomCount} = newIncome.props;
     expect(units).toBe(props.initialValues.units);
     expect(squareFeet).toBe(props.initialValues.squareFeet);
@@ -86,18 +86,18 @@ describe('ApartmentIncome', () => {
   });
   it('should present undefined/blank vals in new income form when props.initialValues', () => {
     const {output} = setup({initialValues: undefined});
-    const [newIncome] = output.props.children;
+    const newIncome = output.props.children[3].props.children[0];
     const {units, squareFeet, monthlyRent, bedroomCount} = newIncome.props;
     [units, squareFeet, monthlyRent].forEach(source => expect(source).toBe(undefined)); 
     expect(bedroomCount).toBe(0);
   });
   it('should call onSave on onSubmit for valid new income', () => {
     const {props, output, renderer} = setup({});
-    const [newIncome] = output.props.children;
+    const newIncome = output.props.children[3].props.children[0];
     const {onChange} = newIncome.props;
     onChange({monthlyRent: 123, units: 10});
     const updatedOutput = renderer.getRenderOutput();
-    const [updatedNewIncome] = updatedOutput.props.children;
+    const updatedNewIncome = output.props.children[3].props.children[0];
     updatedNewIncome.props.onSubmit();
     const lastCallArgs: IApartmentIncome & IIncome = props.onSave.calls.mostRecent().args[0];
     expect(lastCallArgs.monthlyRent).toBe(123);
@@ -107,10 +107,10 @@ describe('ApartmentIncome', () => {
   });
   it('should not call onSave on onSubmit for invalid new income', () => {
     const {props, output, renderer} = setup({});
-    const [newIncome] = output.props.children;
+    const newIncome = output.props.children[3].props.children[0];
     newIncome.props.onChange({monthlyRent: '', squareFeet: 456, units: 10});
     const updatedOutput = renderer.getRenderOutput();
-    const [updatedNewIncome] = updatedOutput.props.children;
+    const updatedNewIncome = output.props.children[3].props.children[0];
     updatedNewIncome.props.onSubmit();
     expect(props.onSave).not.toHaveBeenCalled();
     inputValuesShouldBeResetToInitialValues(renderer, props);

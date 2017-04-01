@@ -43,7 +43,11 @@ export class ApartmentIncome extends React.Component<IIncomeAggregatorProps<IApa
     const {incomes} = this.props;
     console.log('ApartmentIncome#render', incomes);
     return (
-      <section className='apartment-income'>
+      <table id='apartment-income'>
+        <caption className='income-table'>apartment income</caption>
+        <colgroup />
+        <thead />
+        <tbody>
         <ApartmentIncomeForm
           onChange={this.onChange}
           onSubmit={this.onSubmit}
@@ -56,8 +60,12 @@ export class ApartmentIncome extends React.Component<IIncomeAggregatorProps<IApa
             onDelete={this.handleDelete}
             />
         )}
-      </section>
+        </tbody>
+      </table>
     );
   }
 
 }
+        /*
+        <caption className='income-table'>apartment income</caption>
+        */
