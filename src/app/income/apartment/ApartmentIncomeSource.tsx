@@ -6,33 +6,35 @@ export class ApartmentIncomeSource extends React.PureComponent<any, {}> {
   render() {
     const deleteCssClasses = 'apartment-income-destroy destroy-item';
     return (
-      <div className={this.props.incomeSourceContainerName}>
-        <div className='bedroom-count'>
+      <tr className={this.props.incomeSourceContainerName}>
+        <td className='bedroom-count'>
           <div className='display'>
             {this.props.bedroomCount}
           </div>
-        </div>
-        <div className='unit-count'>
+        </td>
+        <td className='unit-count'>
           <div className='display'>
             {this.props.units}
           </div>
-        </div>
-        <div className='square-feet'>
+        </td>
+        <td className='square-feet'>
           <div className='display'>
             {this.props.squareFeet}
           </div>
-        </div>
-        <div className='monthly-rent'>
+        </td>
+        <td className='monthly-rent'>
           <div className='display'>
             {this.props.monthlyRent}
           </div>
-        </div>
-        <div className='delete-container'>
-          <button className={deleteCssClasses} onClick={ () => {this.props.onDelete(this.props.id)} }>
-            delete
-          </button>
-        </div>
-      </div>
+        </td>
+        <td>
+          <div className='delete-container'>
+            <button className={deleteCssClasses} onClick={ () => {this.props.onDelete(this.props.id)} }>
+              delete
+            </button>
+          </div>
+        </td>
+      </tr>
     );
   }
 }

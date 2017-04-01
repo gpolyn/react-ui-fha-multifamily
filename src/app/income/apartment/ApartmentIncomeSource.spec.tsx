@@ -29,38 +29,40 @@ function setup(propOverrides: any) {
 describe('ApartmentIncomeSource', () => {
   it('initial render', () => {
     const {output, props} = setup({});
-    expect(output.type).toBe('div');
+    expect(output.type).toBe('tr');
     expect(output.props.className).toBe(props.incomeSourceContainerName);
-    const [bedroomCount, units, squareFeet, rent, deleteBtn] = output.props.children;
+    const [bedroomCount, units, squareFeet, rent, deleteCtr] = output.props.children;
 
-    expect(units.type).toBe('div');
+    expect(units.type).toBe('td');
     expect(units.props.className).toBe('unit-count');
     expect(units.props.children.type).toBe('div');
     const unitsContent = units.props.children.props;
     expect(unitsContent.className).toBe('display');
     expect(unitsContent.children).toBe(props.units);
 
-    expect(bedroomCount.type).toBe('div');
+    expect(bedroomCount.type).toBe('td');
     expect(bedroomCount.props.className).toBe('bedroom-count');
     expect(bedroomCount.props.children.type).toBe('div');
     const bedroomCountContent = bedroomCount.props.children.props;
     expect(bedroomCountContent.className).toBe('display');
     expect(bedroomCountContent.children).toBe(props.bedroomCount);
 
-    expect(squareFeet.type).toBe('div');
+    expect(squareFeet.type).toBe('td');
     expect(squareFeet.props.className).toBe('square-feet');
     expect(squareFeet.props.children.type).toBe('div');
     const squareFeetContent = squareFeet.props.children.props;
     expect(squareFeetContent.className).toBe('display');
     expect(squareFeetContent.children).toBe(props.squareFeet);
 
-    expect(rent.type).toBe('div');
+    expect(rent.type).toBe('td');
     expect(rent.props.className).toBe('monthly-rent');
     expect(rent.props.children.type).toBe('div');
     const rentContent = rent.props.children.props;
     expect(rentContent.className).toBe('display');
     expect(rentContent.children).toBe(props.monthlyRent);
 
+    expect(deleteCtr.type).toBe('td');
+    const deleteBtn = deleteCtr.props.children;
     expect(deleteBtn.type).toBe('div');
     expect(deleteBtn.props.className).toBe('delete-container');
     expect(deleteBtn.props.children.type).toBe('button');
@@ -71,7 +73,8 @@ describe('ApartmentIncomeSource', () => {
 
   it('should call onDelete for delete button onClick', () => {
     const {props, output} = setup({});
-    const [, , , , deleteBtn] = output.props.children;
+    const [, , , , deleteCtr] = output.props.children;
+    const deleteBtn = deleteCtr.props.children;
     deleteBtn.props.children.props.onClick();
     expect(props.onDelete).toHaveBeenCalled();
   });
