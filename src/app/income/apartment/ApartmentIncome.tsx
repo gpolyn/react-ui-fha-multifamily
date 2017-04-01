@@ -45,8 +45,31 @@ export class ApartmentIncome extends React.Component<IIncomeAggregatorProps<IApa
     return (
       <table id='apartment-income'>
         <caption className='income-table'>apartment income</caption>
-        <colgroup />
-        <thead />
+        <colgroup>
+					<col id="apartment-bedroom-count" />
+					<col id="apartment-unit-count" />
+					<col className="square-footage" id="apartment-square-feet" />
+					<col className="monthly-income" id="apartment-monthly-rent" />
+					<col id="destroy" />
+        </colgroup>
+        <thead>
+					<tr>
+						<th>
+							bedrooms<span className='required'>*</span>	
+						</th>	
+						<th>
+							units<span className='required'>*</span>	
+						</th>	
+						<th>
+							square feet
+						</th>	
+						<th>
+							monthly rent<span className='required'>*</span>	
+						</th>	
+						<th>
+						</th>	
+					</tr>
+				</thead>
         <tbody>
         <ApartmentIncomeForm
           onChange={this.onChange}
