@@ -18,25 +18,30 @@ export class ParkingIncomeForm extends React.PureComponent<any, any> {
   render() {
     const {totalSquareFeet, spaces, isIndoor, monthlyFee, css} = this.props;
     return (
-      <form onSubmit={this.handleSubmit} id={css.newIncomeContainerName}>
-        <label>
-          spaces
-          <input name='spaces' className={css.spacesInputName} type='number' value={this.fmt(spaces)} onChange={this.updateNumericField}/>
-        </label>
-        <select name='isIndoor' className={css.indoorOrOutdoorInputName} value={isIndoor} onChange={this.handleSelectorChange}>
-          <option value='true'>indoor</option>
-          <option value='false'>outdoor</option>
-        </select>
-        <label>
-          total square feet
-          <input name='totalSquareFeet' className={css.squareFeetInputName} type='number' value={this.fmt(totalSquareFeet)} onChange={this.updateNumericField}/>
-        </label>
-        <label>
-          monthly fee
-          <input name='monthlyFee' className={css.monthlyFeeInputName} type='number' value={this.fmt(monthlyFee)} onChange={this.updateNumericField}/>
-        </label>
-        <input type='submit' value='Submit'/>
-      </form>
+      <tr id={css.newIncomeContainerName}>
+        <form onSubmit={this.handleSubmit} >
+          <td>
+            <input name='spaces' className={css.spacesInputName} type='number' value={this.fmt(spaces)} onChange={this.updateNumericField}/>
+          </td>
+          <td>
+            <select name='isIndoor' className={css.indoorOrOutdoorInputName} value={isIndoor} onChange={this.handleSelectorChange}>
+              <option value='true'>indoor</option>
+              <option value='false'>outdoor</option>
+            </select>
+          </td>
+          <td>
+            <input name='totalSquareFeet' className={css.squareFeetInputName} type='number' value={this.fmt(totalSquareFeet)} onChange={this.updateNumericField}/>
+          </td>
+          <td>
+            <input name='monthlyFee' className={css.monthlyFeeInputName} type='number' value={this.fmt(monthlyFee)} onChange={this.updateNumericField}/>
+          </td>
+          <td>
+            <div className='add'>
+              <input className='add-item' type='submit' value='Submit'/>
+            </div>
+          </td>
+        </form>
+      </tr>
     );
   }
 

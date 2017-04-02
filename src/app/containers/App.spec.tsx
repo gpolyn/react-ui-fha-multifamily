@@ -250,7 +250,7 @@ describe('App', () => {
       const rentAmount = someNumber * 2;
       (rent as HTMLInputElement).value = String(rentAmount);
       TestUtils.Simulate.change(rent);
-      const fm = domApp.querySelector('form#new-commercial-parking-income');
+      const fm = domApp.querySelector('#new-commercial-parking-income form');
       TestUtils.Simulate.submit(fm);
       expect(app.state.commercialParkingIncomes.length).toBe(1);
       const income = app.state.commercialParkingIncomes[0];
@@ -270,7 +270,7 @@ describe('App', () => {
       const rentAmount = someNumber * 2;
       (rent as HTMLInputElement).value = String(rentAmount);
       TestUtils.Simulate.change(rent);
-      const fm = domApp.querySelector('form#new-residential-parking-income');
+      const fm = domApp.querySelector('#new-residential-parking-income form');
       TestUtils.Simulate.submit(fm);
       expect(app.state.parkingIncomes.length).toBe(1);
       const income = app.state.parkingIncomes[0];
