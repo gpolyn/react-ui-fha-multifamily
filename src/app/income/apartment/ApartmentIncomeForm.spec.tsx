@@ -98,7 +98,6 @@ describe('ApartmentIncomeForm', () => {
   it('should call onSubmit for button#add-item click', () => {
     const {props, output} = setup({});
     const addContainer = output.props.children[4];
-    // expect(addContainer.props.children.props.children.props).toBe('fart');
     const {onClick} = addContainer.props.children.props.children.props;
     expect(props.onSubmit.calls.count()).toBe(0);
     onClick();
