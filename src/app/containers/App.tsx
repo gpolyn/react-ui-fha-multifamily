@@ -181,50 +181,59 @@ export class App extends React.Component<any, any> {
     };
 
     return (
-      <div>
-        <ApartmentIncome
-           incomes={this.state.apartmentIncomes}
-           onDestroy={id => this.updateIncomes('apartmentIncomes', actions.deleteIncome(id))}
-           onSave={dta => this.updateIncomes('apartmentIncomes', actions.addIncome(dta))}
-           />
-         residential parking
-         {parking(this.state.parkingIncomes, 'parkingIncomes', parkingIncomeCSS)}
-         commercial parking
-         {parking(this.state.commercialParkingIncomes, 'commercialParkingIncomes', commercialParkingIncomeCSS)}
-         commercial income
-         {other(this.state.commercialIncomes, 'commercialIncomes', commercialIncomeCSS)}
-         other income
-         {other(this.state.otherIncomes, 'otherIncomes', otherIncomeCSS)}
-         {operatingIncome}           
-        <div id='operating-expense'>
-          <div className='left'>
-            <label htmlFor='total'>total operating expenses<span className='required'>*</span></label>
+        <div className='column'>
+          <div id='inner_page_title'> 
+            <h1>FHA Sec. 223(f) refinance/purchase demo</h1>
           </div>
-          <div className='right'>
-            <SharedInput2 onChange={this.onChange} valKey='operating_expenses'> 
-              <PercentableInput id='total' value={this.state.operating_expenses} isPercent={this.state.operating_expenses_is_percent_of_effective_gross_income}>
-                <MinLimitedNumericInput id='total' min={0} />
-              </PercentableInput>
-            </SharedInput2 >
-            <SharedInput2 onChange={this.onChange} valKey='operating_expenses_is_percent_of_effective_gross_income'> 
-              <OverrideableCheckboxControl id='totalOperatingExpenseIsPercent' value={this.state.operating_expenses_is_percent_of_effective_gross_income}/>
-            </SharedInput2>
-            <label htmlFor='totalOperatingExpenseIsPercent'>%</label>
+          <div id='todoapp'>
+            <div className='content'>
+              <div id='income'>
+          <ApartmentIncome
+             incomes={this.state.apartmentIncomes}
+             onDestroy={id => this.updateIncomes('apartmentIncomes', actions.deleteIncome(id))}
+             onSave={dta => this.updateIncomes('apartmentIncomes', actions.addIncome(dta))}
+             />
+           residential parking
+           {parking(this.state.parkingIncomes, 'parkingIncomes', parkingIncomeCSS)}
+           commercial parking
+           {parking(this.state.commercialParkingIncomes, 'commercialParkingIncomes', commercialParkingIncomeCSS)}
+           commercial income
+           {other(this.state.commercialIncomes, 'commercialIncomes', commercialIncomeCSS)}
+           other income
+           {other(this.state.otherIncomes, 'otherIncomes', otherIncomeCSS)}
+           {operatingIncome}           
+          <div id='operating-expense'>
+            <div className='left'>
+              <label htmlFor='total'>total operating expenses<span className='required'>*</span></label>
+            </div>
+            <div className='right'>
+              <SharedInput2 onChange={this.onChange} valKey='operating_expenses'> 
+                <PercentableInput id='total' value={this.state.operating_expenses} isPercent={this.state.operating_expenses_is_percent_of_effective_gross_income}>
+                  <MinLimitedNumericInput id='total' min={0} />
+                </PercentableInput>
+              </SharedInput2 >
+              <SharedInput2 onChange={this.onChange} valKey='operating_expenses_is_percent_of_effective_gross_income'> 
+                <OverrideableCheckboxControl id='totalOperatingExpenseIsPercent' value={this.state.operating_expenses_is_percent_of_effective_gross_income}/>
+              </SharedInput2>
+              <label htmlFor='totalOperatingExpenseIsPercent'>%</label>
+            </div>
+          </div>
+          <div id='operating'>
+            <div className='left'>
+              net operating income
+            </div>
+            <div className='right'>
+              <DollarSpan value={noi} id='net-operating-income' />
+            </div>
+          </div>
+          {project}
+          </div>
+          <div id='acquisition-costs'>
+            {financing}
           </div>
         </div>
-        <div id='operating'>
-          <div className='left'>
-            net operating income
-          </div>
-          <div className='right'>
-            <DollarSpan value={noi} id='net-operating-income' />
-          </div>
-        </div>
-        {project}
-        <div id='acquisition-costs'>
-          {financing}
-        </div>
-      </div> 
+      </div>
+    </div>
     );
   }
 }

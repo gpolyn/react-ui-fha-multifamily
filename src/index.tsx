@@ -26,6 +26,10 @@ import incomes from './app/Reducers';
 import * as actions from './app/Actions';
 
 import './index.css';
+import './stylesheets/general.css';
+import './stylesheets/income_tables.css';
+import './stylesheets/scaffold.css';
+import './stylesheets/todos.css';
 
 let otherIncomes = [
   {id:0, totalMonthlyIncome: 456, monthlyRent: 23, usage: 'fart-space', squareFeet: 432},

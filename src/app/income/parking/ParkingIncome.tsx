@@ -42,7 +42,7 @@ export class ParkingIncome extends React.Component<IIncomeAggregatorProps<IParki
   render() {
     const {incomes} = this.props;
     return (
-      <table id={this.props.incomeSourceContainerName}>
+      <table id={this.props.css.incomeSourceContainerName}>
         <caption className='income-table'>{this.props.caption}</caption>
         <colgroup>
 					<col />

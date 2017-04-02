@@ -39,7 +39,7 @@ export class OtherIncome extends React.Component<IIncomeAggregatorProps<IOtherIn
   render() {
     const {incomes} = this.props;
     return (
-      <table id={this.props.incomeSourceContainerName}>
+      <table id={this.props.css.incomeSourceContainerName}>
         <caption className='income-table'>{this.props.caption}</caption>
         <colgroup>
 					<col />
