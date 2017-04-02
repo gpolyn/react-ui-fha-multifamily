@@ -9,9 +9,8 @@ export class ApartmentIncomeForm extends React.PureComponent<any, any> {
     this.updateNumericField = this.updateNumericField.bind(this);
   }
 
-  handleSubmit(event: React.FormEvent<any>) {
+  handleSubmit() {
     this.props.onSubmit();
-    event.preventDefault();
   }
 
   render() {
@@ -21,7 +20,6 @@ export class ApartmentIncomeForm extends React.PureComponent<any, any> {
     );
     return (
         <tr id='new-apartment-income'>
-          <form onSubmit={this.handleSubmit}>
             <td>
               <select name='bedroomCount' className='apartment-bedroom-count' value={bedroomCount} onChange={this.updateNumericField}>
                 {options}
@@ -38,10 +36,9 @@ export class ApartmentIncomeForm extends React.PureComponent<any, any> {
             </td>
             <td>
               <div className='add'>
-                <input className='add-apartment-income add-item' type='submit' value='Submit'/>
+                <button className='add-apartment-income add-item' onClick={this.handleSubmit} value='Submit'/>
               </div>
             </td>
-          </form>
         </tr>
     );
   }

@@ -31,9 +31,9 @@ describe('ApartmentIncomeForm', () => {
     const {output, props} = setup({});
     expect(output.type).toBe('tr');
     expect(output.props.id).toBe('new-apartment-income');
-    const form = output.props.children;
-    expect(form.type).toBe('form');
-    const [brContainer, unitsContainer, sqFTContainer, rentContainer, addContainer] = form.props.children;
+    // const form = output.props.children;
+    // expect(form.type).toBe('form');
+    const [brContainer, unitsContainer, sqFTContainer, rentContainer, addContainer] = output.props.children;
 
     [brContainer, unitsContainer, sqFTContainer, rentContainer, addContainer].forEach( container => expect(container.type).toBe('td'));
 
@@ -65,7 +65,7 @@ describe('ApartmentIncomeForm', () => {
     expect(submitInput.type).toBe('div');
     expect(submitInput.props.className).toBe('add');
     const [formInput] = submitInput.props.children;
-    expect(submitInput.props.children.type).toBe('input');
+    expect(submitInput.props.children.type).toBe('button');
     const expectedClassNames = 'add-apartment-income add-item';
     expect(submitInput.props.children.props.className).toBe(expectedClassNames);
   });
@@ -77,7 +77,7 @@ describe('ApartmentIncomeForm', () => {
       monthlyRent: 2130
     };
     const {output} = setup(nullFieldValues);
-    const [brContainer, unitsContainer, sqFTContainer, rentContainer, addContainer] = output.props.children.props.children;
+    const [brContainer, unitsContainer, sqFTContainer, rentContainer, addContainer] = output.props.children;
     const bedroomCount = brContainer.props.children;
     const units = unitsContainer.props.children;
     const sqFt = sqFTContainer.props.children;
@@ -91,15 +91,17 @@ describe('ApartmentIncomeForm', () => {
     const {output, props} = setup({});
     for (let i = 0; i < 4; i++){
       props.onChange.calls.reset();
-      expect(output.props.children.props.children[i].props.children.props.onChange({target: {}}))
+      expect(output.props.children[i].props.children.props.onChange({target: {}}))
       expect(props.onChange).toHaveBeenCalled();
     }
   });
-  it('should call onSubmit for form submit', () => {
+  it('should call onSubmit for button#add-item click', () => {
     const {props, output} = setup({});
-    const {onSubmit} = output.props.children.props;
+    const addContainer = output.props.children[4];
+    // expect(addContainer.props.children.props.children.props).toBe('fart');
+    const {onClick} = addContainer.props.children.props.children.props;
     expect(props.onSubmit.calls.count()).toBe(0);
-    onSubmit({preventDefault: () => {}});
+    onClick();
     expect(props.onSubmit.calls.count()).toBe(1);
   });
 });

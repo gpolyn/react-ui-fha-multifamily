@@ -14,7 +14,7 @@ import * as ReactDOM from 'react-dom';
 
 const someNumber = 18;
 const totalRadioControls = 2;
-const totalNumberOfInputs = 45;
+const totalNumberOfInputs = 44;
 const totalNumberOfMinLimitedInputs = 13;
 const totalNumberOfMinMaxLimitedInputs = 4;
 const totalCheckBoxes = 3;
@@ -199,7 +199,9 @@ describe('App', () => {
       (monthlyRentField as HTMLInputElement).value = String(rentAmount);
       TestUtils.Simulate.change(monthlyRentField);
       const fm = domApp.querySelector('tr#new-apartment-income form');
-      TestUtils.Simulate.submit(fm);
+      const add = domApp.querySelector('tr#new-apartment-income .add-item');
+      TestUtils.Simulate.click(add);
+
       expect(app.state.apartmentIncomes.length).toBe(1);
       const income = app.state.apartmentIncomes[0];
       expect(income.monthlyRent).toBe(rentAmount)
