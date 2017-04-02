@@ -39,22 +39,46 @@ export class OtherIncome extends React.Component<IIncomeAggregatorProps<IOtherIn
   render() {
     const {incomes} = this.props;
     return (
-      <section className='other-income'>
-        <OtherIncomeForm
-          onChange={this.onChange}
-          onSubmit={this.onSubmit}
-          css={this.props.css}
-          {...this.state}
-          />
-        {incomes.map(income =>
-          <OtherIncomeSource
-            key={income.id}
-            {...income}
-            {...this.props.css}
-            onDelete={this.handleDelete}
+      <table id={this.props.incomeSourceContainerName}>
+        <caption className='income-table'>{this.props.caption}</caption>
+        <colgroup>
+					<col />
+					<col className='square-footage' />
+					<col className="monthly-income" />
+					<col id="destroy" />
+        </colgroup>
+        <thead>
+					<tr>
+						<th>
+							usage
+						</th>	
+						<th>
+							square feet
+						</th>	
+						<th>
+							monthly rent<span className='required'>*</span>	
+						</th>	
+						<th>
+						</th>	
+					</tr>
+				</thead>
+        <tbody>
+          <OtherIncomeForm
+            onChange={this.onChange}
+            onSubmit={this.onSubmit}
+            css={this.props.css}
+            {...this.state}
             />
-        )}
-      </section>
+          {incomes.map(income =>
+            <OtherIncomeSource
+              key={income.id}
+              {...income}
+              {...this.props.css}
+              onDelete={this.handleDelete}
+              />
+          )}
+        </tbody>
+      </table>
     );
   }
 

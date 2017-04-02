@@ -31,7 +31,8 @@ const otherIncomeCSS = {
   usageInputName: 'other-residential-use usage',
   squareFeetInputName: 'other-residential-square-feet',
   monthlyRentInputName: 'other-residential-monthly-rent',
-  incomeSourceContainerName: 'other-residential-income'
+  incomeSourceContainerName: 'other-residential-income',
+  caption: 'other residential income'
 };
 
 const commercialIncomeCSS = {
@@ -39,7 +40,8 @@ const commercialIncomeCSS = {
   usageInputName: 'commercial-use usage',
   squareFeetInputName: 'commercial-square-feet',
   monthlyRentInputName: 'commercial-monthly-rent',
-  incomeSourceContainerName: 'commercial-income'
+  incomeSourceContainerName: 'commercial-income',
+  caption: 'commercial income'
 };
 
 const commercialParkingIncomeCSS = {
