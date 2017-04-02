@@ -5,12 +5,7 @@ export class ApartmentIncomeForm extends React.PureComponent<any, any> {
 
   constructor(props: any) {
     super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
     this.updateNumericField = this.updateNumericField.bind(this);
-  }
-
-  handleSubmit() {
-    this.props.onSubmit();
   }
 
   render() {
@@ -36,7 +31,7 @@ export class ApartmentIncomeForm extends React.PureComponent<any, any> {
             </td>
             <td>
               <div className='add'>
-                <button className='add-apartment-income add-item' onClick={this.handleSubmit} value='Submit'/>
+                <button className='add-apartment-income add-item' onClick={this.props.onSubmit} value='Submit'/>
               </div>
             </td>
         </tr>
