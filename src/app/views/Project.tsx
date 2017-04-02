@@ -18,7 +18,7 @@ export function Project(props: any) {
 
   const {onChange, is_elevator_project, metropolitan_area_waiver, affordability} = props;
   const elevator = (
-    <div id='elevator-status'>
+    <div key='elevator-status' id='elevator-status'>
       project has elevator?
       <OnChangePayloadObjectInterceptor valKey='is_elevator_project' onChange={onChange}>
         <OverrideableSelectControl
@@ -30,7 +30,7 @@ export function Project(props: any) {
     </div>
   );
   const msa = (
-    <div id='metropolitan-area'>
+    <div key='metropolitan-area' id='metropolitan-area'>
       <label htmlFor='high-cost-setting'>
         Metropolitan Statistical Area Waiver:
       </label>
@@ -44,7 +44,7 @@ export function Project(props: any) {
     </div>
   );
   const aff = (
-      <div id='affordability'>
+      <div key='affordability' id='affordability'>
         apartment rents are
         <OnChangePayloadObjectInterceptor valKey='affordability' onChange={onChange}>
           <OverrideableRadioControl 
