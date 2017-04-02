@@ -38,9 +38,7 @@ describe('ParkingIncomeForm', () => {
     const {output, props} = setup({});
     expect(output.type).toBe('tr');
     expect(output.props.id).toBe(props.css.newIncomeContainerName);
-    const form = output.props.children;
-    expect(form.type).toBe('form');
-    const [spacesContainer, typeContainer, sqFTContainer, rentContainer, addContainer] = form.props.children;
+    const [spacesContainer, typeContainer, sqFTContainer, rentContainer, addContainer] = output.props.children;
 
     const indoorOutdoor = typeContainer.props.children;
     expect(indoorOutdoor.type).toBe('select');
@@ -65,10 +63,10 @@ describe('ParkingIncomeForm', () => {
     expect(feeInput.props.className).toBe(props.css.monthlyFeeInputName);
     expect(feeInput.props.name).toBe('monthlyFee');
 
-    const addInnerDiv = addContainer.props.children;
-    const submitInput = addInnerDiv.props.children;
-    expect(submitInput.type).toBe('input');
-    expect(submitInput.props.type).toBe('submit');
+    const innerDiv = addContainer.props.children;
+    expect(innerDiv.type).toBe('div');
+    const submitInput = innerDiv.props.children;
+    expect(submitInput.type).toBe('button');
   });
   it('should have expected initial field values', () => {
     const expectedFieldVals = [45, true, 450, 432];
@@ -79,7 +77,7 @@ describe('ParkingIncomeForm', () => {
       monthlyFee: expectedFieldVals[3]
     };
     const {output} = setup(nullFieldValues);
-    const [spacesContainer, typeContainer, sqFTContainer, rentContainer, addContainer] = output.props.children.props.children;
+    const [spacesContainer, typeContainer, sqFTContainer, rentContainer, addContainer] = output.props.children;
     const spaces = spacesContainer.props.children;
     const indoorOrOutdoor = typeContainer.props.children;
     const sqFt = sqFTContainer.props.children;
@@ -91,37 +89,38 @@ describe('ParkingIncomeForm', () => {
   });
   it('should call onChange for spaces input onChange', () => {
     const {output, props} = setup({});
-    const spacesContainer = output.props.children.props.children[0];
+    const spacesContainer = output.props.children[0];
     const input = spacesContainer.props.children;
     input.props.onChange({target: {}});
     expect(props.onChange).toHaveBeenCalled();
   });
   it('should call onChange for indoor/outdoor selector onChange', () => {
     const {output, props} = setup({});
-    const container = output.props.children.props.children[1];
+    const container = output.props.children[1];
     const indoorOrOutdoor = container.props.children;
     indoorOrOutdoor.props.onChange({target:{}});
     expect(props.onChange).toHaveBeenCalled();
   });
   it('should call onChange for totalSquareFeet input onChange', () => {
     const {output, props} = setup({});
-    const container = output.props.children.props.children[2];
+    const container = output.props.children[2];
     const input = container.props.children;
     input.props.onChange({target: {}});
     expect(props.onChange).toHaveBeenCalled();
   });
   it('should call onChange for monthlyFee input onChange', () => {
     const {output, props} = setup({});
-    const container = output.props.children.props.children[3];
+    const container = output.props.children[3];
     const input = container.props.children;
     input.props.onChange({target: {}});
     expect(props.onChange).toHaveBeenCalled();
   });
-  it('should call onSubmit for form submit', () => {
+  it('should call onSubmit for button#add-item click', () => {
     const {props, output} = setup({});
-    const {onSubmit} = output.props.children.props;
+    const addContainer = output.props.children[4];
+    const {onClick} = addContainer.props.children.props.children.props;
     expect(props.onSubmit.calls.count()).toBe(0);
-    onSubmit({preventDefault: () => {}});
+    onClick();
     expect(props.onSubmit.calls.count()).toBe(1);
   });
 });

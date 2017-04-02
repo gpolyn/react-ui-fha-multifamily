@@ -14,7 +14,7 @@ import * as ReactDOM from 'react-dom';
 
 const someNumber = 18;
 const totalRadioControls = 2;
-const totalNumberOfInputs = 42;
+const totalNumberOfInputs = 40;
 const totalNumberOfMinLimitedInputs = 13;
 const totalNumberOfMinMaxLimitedInputs = 4;
 const totalCheckBoxes = 3;
@@ -253,8 +253,8 @@ describe('App', () => {
       const rentAmount = someNumber * 2;
       (rent as HTMLInputElement).value = String(rentAmount);
       TestUtils.Simulate.change(rent);
-      const fm = domApp.querySelector('#new-commercial-parking-income form');
-      TestUtils.Simulate.submit(fm);
+      const addBtn = domApp.querySelector('#new-commercial-parking-income .add-item');
+      TestUtils.Simulate.click(addBtn);
       expect(app.state.commercialParkingIncomes.length).toBe(1);
       const income = app.state.commercialParkingIncomes[0];
       expect(income.monthlyFee).toBe(rentAmount)
@@ -273,8 +273,8 @@ describe('App', () => {
       const rentAmount = someNumber * 2;
       (rent as HTMLInputElement).value = String(rentAmount);
       TestUtils.Simulate.change(rent);
-      const fm = domApp.querySelector('#new-residential-parking-income form');
-      TestUtils.Simulate.submit(fm);
+      const addBtn = domApp.querySelector('#new-residential-parking-income .add-item');
+      TestUtils.Simulate.click(addBtn);
       expect(app.state.parkingIncomes.length).toBe(1);
       const income = app.state.parkingIncomes[0];
       expect(income.monthlyFee).toBe(rentAmount)

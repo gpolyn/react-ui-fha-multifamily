@@ -5,21 +5,14 @@ export class ParkingIncomeForm extends React.PureComponent<any, any> {
 
   constructor(props: any) {
     super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
     this.updateNumericField = this.updateNumericField.bind(this);
     this.handleSelectorChange = this.handleSelectorChange.bind(this);
-  }
-
-  handleSubmit(event: React.FormEvent<any>) {
-    this.props.onSubmit();
-    event.preventDefault();
   }
 
   render() {
     const {totalSquareFeet, spaces, isIndoor, monthlyFee, css} = this.props;
     return (
       <tr id={css.newIncomeContainerName}>
-        <form onSubmit={this.handleSubmit} >
           <td>
             <input name='spaces' className={css.spacesInputName} type='number' value={this.fmt(spaces)} onChange={this.updateNumericField}/>
           </td>
@@ -37,10 +30,9 @@ export class ParkingIncomeForm extends React.PureComponent<any, any> {
           </td>
           <td>
             <div className='add'>
-              <input className='add-item' type='submit' value='Submit'/>
+              <button className='add-item' onClick={this.props.onSubmit}/>
             </div>
           </td>
-        </form>
       </tr>
     );
   }
