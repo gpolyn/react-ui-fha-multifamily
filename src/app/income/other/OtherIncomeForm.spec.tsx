@@ -36,9 +36,7 @@ describe('OtherIncomeForm', () => {
     const {output, props} = setup({});
     expect(output.type).toBe('tr');
     expect(output.props.id).toBe(props.css.newIncomeContainerName);
-    const form = output.props.children;
-    expect(form.type).toBe('form');
-    const [usageContainer, sqFTContainer, rentContainer, addContainer] = form.props.children;
+    const [usageContainer, sqFTContainer, rentContainer, addContainer] = output.props.children;
     [usageContainer, sqFTContainer, rentContainer, addContainer].forEach( container => {
       expect(container.type).toBe('td');
     });
@@ -61,8 +59,7 @@ describe('OtherIncomeForm', () => {
     const innerDiv = addContainer.props.children;
     expect(innerDiv.type).toBe('div');
     const submitInput = innerDiv.props.children;
-    expect(submitInput.type).toBe('input');
-    expect(submitInput.props.type).toBe('submit');
+    expect(submitInput.type).toBe('button');
   });
   it('should have expected initial field values', () => {
     const expectedFieldVals = ['blah', 450, 432];
@@ -72,7 +69,7 @@ describe('OtherIncomeForm', () => {
       monthlyRent: expectedFieldVals[2]
     };
     const {output} = setup(nullFieldValues);
-    const [usageContainer, sqFTContainer, rentContainer, addContainer] = output.props.children.props.children;
+    const [usageContainer, sqFTContainer, rentContainer, addContainer] = output.props.children;
     const usage = usageContainer.props.children;
     const squareFeet = sqFTContainer.props.children;
     const monthlyRent = rentContainer.props.children;
@@ -85,16 +82,17 @@ describe('OtherIncomeForm', () => {
     const altProps = props;
     for (let i = 0; i < 3; i++){
       altProps.onChange.calls.reset();
-      let input = output.props.children.props.children[i].props.children,props;
+      let input = output.props.children[i].props.children,props;
       input.props.onChange({target: {}});
       expect(altProps.onChange).toHaveBeenCalled();
     }
   });
-  it('should call onSubmit for form submit', () => {
+  it('should call onSubmit for button#add-item click', () => {
     const {props, output} = setup({});
-    const {onSubmit} = output.props.children.props;
+    const addContainer = output.props.children[3];
+    const {onClick} = addContainer.props.children.props.children.props;
     expect(props.onSubmit.calls.count()).toBe(0);
-    onSubmit({preventDefault: () => {}});
+    onClick();
     expect(props.onSubmit.calls.count()).toBe(1);
   });
 });

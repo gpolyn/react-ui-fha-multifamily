@@ -10,16 +10,14 @@ export class OtherIncomeForm extends React.PureComponent<any, any> {
     this.updateNumericField = this.updateNumericField.bind(this);
   }
 
-  handleSubmit(event: React.FormEvent<any>) {
+  handleSubmit() {
     this.props.onSubmit();
-    event.preventDefault();
   }
 
   render() {
     const {usage, squareFeet, monthlyRent, css} = this.props;
     return (
       <tr id={css.newIncomeContainerName}>
-        <form onSubmit={this.handleSubmit}>
           <td>
             <input name='usage' className={css.usageInputName} type='text' value={this.fmt(usage)} onChange={this.updateStringField}/>
           </td>
@@ -31,10 +29,9 @@ export class OtherIncomeForm extends React.PureComponent<any, any> {
           </td>
           <td>
             <div className='add'>
-              <input className='add-item' type='submit' value='Submit'/>
+              <button className='add-item' onClick={this.handleSubmit} value='Submit'/>
             </div>
           </td>
-        </form>
       </tr>
     );
   }
