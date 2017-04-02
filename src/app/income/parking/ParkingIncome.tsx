@@ -42,22 +42,49 @@ export class ParkingIncome extends React.Component<IIncomeAggregatorProps<IParki
   render() {
     const {incomes} = this.props;
     return (
-      <section className='other-income'>
-        <ParkingIncomeForm
-          onChange={this.onChange}
-          onSubmit={this.onSubmit}
-          css={this.props.css}
-          {...this.state}
-          />
-        {incomes.map(income =>
-          <ParkingIncomeSource
-            key={income.id}
-            {...income}
-            {...this.props.css}
-            onDelete={this.handleDelete}
+      <table id={this.props.incomeSourceContainerName}>
+        <caption className='income-table'>{this.props.caption}</caption>
+        <colgroup>
+					<col />
+					<col />
+					<col className="square-footage" />
+					<col className="monthly-income" />
+					<col id="destroy" />
+        </colgroup>
+        <thead>
+					<tr>
+						<th>
+							spaces<span className='required'>*</span>	
+						</th>	
+						<th>
+						</th>	
+						<th>
+							total square feet
+						</th>	
+            <th>
+							spaces<span className='required'>*</span>	
+            </th>
+						<th>
+						</th>	
+					</tr>
+				</thead>
+        <tbody>
+          <ParkingIncomeForm
+            onChange={this.onChange}
+            onSubmit={this.onSubmit}
+            css={this.props.css}
+            {...this.state}
             />
-        )}
-      </section>
+          {incomes.map(income =>
+            <ParkingIncomeSource
+              key={income.id}
+              {...income}
+              {...this.props.css}
+              onDelete={this.handleDelete}
+              />
+          )}
+        </tbody>
+      </table>
     );
   }
 
