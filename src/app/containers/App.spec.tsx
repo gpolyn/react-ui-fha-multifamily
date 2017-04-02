@@ -215,7 +215,7 @@ describe('App', () => {
       const rentAmount = someNumber * 2;
       (monthlyRentField as HTMLInputElement).value = String(rentAmount);
       TestUtils.Simulate.change(monthlyRentField);
-      const fm = domApp.querySelector('form#new-other-income');
+      const fm = domApp.querySelector('#new-other-income form');
       TestUtils.Simulate.submit(fm);
       expect(app.state.otherIncomes.length).toBe(1);
       const income = app.state.otherIncomes[0];
@@ -231,7 +231,7 @@ describe('App', () => {
       const rentAmount = someNumber * 2;
       (commercialRent as HTMLInputElement).value = String(rentAmount);
       TestUtils.Simulate.change(commercialRent);
-      const fm = domApp.querySelector('form#new-commercial-income');
+      const fm = domApp.querySelector('#new-commercial-income form');
       TestUtils.Simulate.submit(fm);
       expect(app.state.commercialIncomes.length).toBe(1);
       const income = app.state.commercialIncomes[0];

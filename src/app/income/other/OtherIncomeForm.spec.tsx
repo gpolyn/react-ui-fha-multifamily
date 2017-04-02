@@ -34,31 +34,33 @@ function setup(propOverrides: any) {
 describe('OtherIncomeForm', () => {
   it('initial render', () => {
     const {output, props} = setup({});
-    expect(output.type).toBe('form');
+    expect(output.type).toBe('tr');
     expect(output.props.id).toBe(props.css.newIncomeContainerName);
-    const [usage, squareFeet, rent, submitInput] = output.props.children;
+    const form = output.props.children;
+    expect(form.type).toBe('form');
+    const [usageContainer, sqFTContainer, rentContainer, addContainer] = form.props.children;
+    [usageContainer, sqFTContainer, rentContainer, addContainer].forEach( container => {
+      expect(container.type).toBe('td');
+    });
 
-    expect(usage.type).toBe('label');
-    const [usageLabelText, usageInput] = usage.props.children;
-    expect(usageLabelText).toBe('usage');
+    const usageInput = usageContainer.props.children;
     expect(usageInput.type).toBe('input');
     expect(usageInput.props.className).toBe(props.css.usageInputName);
     expect(usageInput.props.name).toBe('usage');
 
-    expect(squareFeet.type).toBe('label');
-    const [squareFeetLabelText, squareFeetInput] = squareFeet.props.children;
-    expect(squareFeetLabelText).toBe('square feet');
+    const squareFeetInput = sqFTContainer.props.children;
     expect(squareFeetInput.type).toBe('input');
     expect(squareFeetInput.props.className).toBe(props.css.squareFeetInputName);
     expect(squareFeetInput.props.name).toBe('squareFeet');
 
-    expect(rent.type).toBe('label');
-    const [monthlyRentLabelText, apartmentMonthlyRentInput] = rent.props.children;
-    expect(monthlyRentLabelText).toBe('monthly rent');
+    const apartmentMonthlyRentInput = rentContainer.props.children;
     expect(apartmentMonthlyRentInput.type).toBe('input');
     expect(apartmentMonthlyRentInput.props.className).toBe(props.css.monthlyRentInputName);
     expect(apartmentMonthlyRentInput.props.name).toBe('monthlyRent');
 
+    const innerDiv = addContainer.props.children;
+    expect(innerDiv.type).toBe('div');
+    const submitInput = innerDiv.props.children;
     expect(submitInput.type).toBe('input');
     expect(submitInput.props.type).toBe('submit');
   });
@@ -70,23 +72,27 @@ describe('OtherIncomeForm', () => {
       monthlyRent: expectedFieldVals[2]
     };
     const {output} = setup(nullFieldValues);
-    const [usage, squareFeet, monthlyRent] = output.props.children;
+    const [usageContainer, sqFTContainer, rentContainer, addContainer] = output.props.children.props.children;
+    const usage = usageContainer.props.children;
+    const squareFeet = sqFTContainer.props.children;
+    const monthlyRent = rentContainer.props.children;
     [usage, squareFeet, monthlyRent].forEach((field, idx) => {
-      expect(field.props.children[1].props.value).toBe(expectedFieldVals[idx]);
+      expect(field.props.value).toBe(expectedFieldVals[idx]);
     });
   });
   it('should call onChange for input onChange', () => {
     const {output, props} = setup({});
+    const altProps = props;
     for (let i = 0; i < 3; i++){
-      props.onChange.calls.reset();
-      let input = output.props.children[i].props.children[1];
+      altProps.onChange.calls.reset();
+      let input = output.props.children.props.children[i].props.children,props;
       input.props.onChange({target: {}});
-      expect(props.onChange).toHaveBeenCalled();
+      expect(altProps.onChange).toHaveBeenCalled();
     }
   });
   it('should call onSubmit for form submit', () => {
     const {props, output} = setup({});
-    const {onSubmit} = output.props;
+    const {onSubmit} = output.props.children.props;
     expect(props.onSubmit.calls.count()).toBe(0);
     onSubmit({preventDefault: () => {}});
     expect(props.onSubmit.calls.count()).toBe(1);
