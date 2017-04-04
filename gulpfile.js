@@ -17,7 +17,9 @@ gulp.task('serve', gulp.series('webpack:watch', 'watch', 'browsersync'));
 gulp.task('serve:dist', gulp.series('default', 'browsersync:dist'));
 gulp.task('default', gulp.series('clean', 'build'));
 gulp.task('watch', watch);
-gulp.task('test:e2e', gulp.series('clean', 'build', 'other', 'test:e2e'));
+gulp.task('clean', gulp.series('clean'));
+//gulp.task('test:e2e', gulp.series('clean', 'build', 'other', 'test:e2e'));
+gulp.task('test:e2e', gulp.series('clean', 'test:e2e'));
 
 function reloadBrowserSync(cb) {
   browserSync.reload();

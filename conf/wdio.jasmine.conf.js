@@ -25,7 +25,7 @@ exports.config = {
     ],
 
     staticServerFolders: [
-      {mount: '/', path: './dist'} 
+      {mount: '/', path: './.tmp'} 
     ],
 
     /**
@@ -33,8 +33,6 @@ exports.config = {
      */
     logLevel: 'silent',
     coloredLogs: true,
-    screenshotPath: 'shots',
-    // baseUrl: 'http://webdriver.io',
     waitforTimeout: 10000,
     framework: 'jasmine',
     services: [

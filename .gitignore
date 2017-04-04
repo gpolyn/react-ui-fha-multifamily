@@ -4,3 +4,4 @@ shots/
 coverage/
 dist/
 node_modules/
+*.swp
