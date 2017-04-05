@@ -78,9 +78,10 @@ describe('PercentableInput', () => {
     props = {...basicProps, value: 99, isPercent: true, onChange: spy};
     const subj = <PercentableInput {...props}><MinLimitedNumericInput min={10} /></PercentableInput>;
     converted = squelchTS2345(ReactDOM.render(subj, node));
-    const input = TestUtils.findRenderedDOMComponentWithTag(converted, 'input')
+    input = TestUtils.findRenderedDOMComponentWithTag(converted, 'input') as HTMLInputElement;
     expect(spy).not.toHaveBeenCalled()
-    TestUtils.Simulate.change(input, getChangeEvent(95));
+    input.value = String(95);
+    TestUtils.Simulate.change(input);
     expect(spy).toHaveBeenCalledWith(95);
   });
 
@@ -88,9 +89,10 @@ describe('PercentableInput', () => {
     props = {...basicProps, value: 99, isPercent: false, onChange: spy};
     const subj = <PercentableInput {...props}><MinLimitedNumericInput min={10} /></PercentableInput>;
     converted = squelchTS2345(ReactDOM.render(subj, node));
-    const input = TestUtils.findRenderedDOMComponentWithTag(converted, 'input')
+    input = TestUtils.findRenderedDOMComponentWithTag(converted, 'input') as HTMLInputElement;
     expect(spy).not.toHaveBeenCalled()
-    TestUtils.Simulate.change(input, getChangeEvent(95));
+    input.value = String(95);
+    TestUtils.Simulate.change(input);
     expect(spy).toHaveBeenCalledWith(95);
   });
 

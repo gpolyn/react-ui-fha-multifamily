@@ -54,7 +54,6 @@ describe('OtherIncome', () => {
   xit('initial render', () => {
     const {output, props} = setup({});
     expect(output.type).toBe('table');
-    expect(output).toBe('fart')
     expect(output.props.id).toBe(props.css.incomeSourceContainerName);
   });
   it('should display all incomes as OtherIncomeSource instances', () => {
