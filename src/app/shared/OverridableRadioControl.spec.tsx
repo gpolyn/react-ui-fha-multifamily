@@ -61,10 +61,12 @@ describe('OverrideableRadioControl', () => {
     expect(subj.querySelectorAll('input')[getIndexForInputValue(props.value)].checked).toBe(true);
     spyOn(OverrideableRadioControl.prototype, 'render').and.callThrough();
     expect(OverrideableRadioControl.prototype.render).not.toHaveBeenCalled();
-    TestUtils.Simulate.change(inputs[getIndexForInputValue('one')], getChangeEvent('one'));
+    ( inputs[getIndexForInputValue('one')] as HTMLInputElement ).value = 'one';
+    TestUtils.Simulate.change(inputs[getIndexForInputValue('one')]);
     expect(OverrideableRadioControl.prototype.render).toHaveBeenCalled();
     expect(subj.querySelectorAll('input')[getIndexForInputValue('one')].checked).toBe(true);
-    TestUtils.Simulate.change(inputs[getIndexForInputValue('two')], getChangeEvent('two'));
+    ( inputs[getIndexForInputValue('two')] as HTMLInputElement ).value = 'two';
+    TestUtils.Simulate.change(inputs[getIndexForInputValue('two')]);
     expect(subj.querySelectorAll('input')[getIndexForInputValue('two')].checked).toBe(true);
   });
 
@@ -99,7 +101,8 @@ describe('OverrideableRadioControl', () => {
   it('should have expected effects when changed ctrl value != props.value', () => {
     spyOn(OverrideableRadioControl.prototype, 'render').and.callThrough();
     spy.calls.reset();
-    TestUtils.Simulate.change(inputs[getIndexForInputValue('one')], getChangeEvent('one'));
+    ( inputs[getIndexForInputValue('one')] as HTMLInputElement ).value = 'one';
+    TestUtils.Simulate.change(inputs[getIndexForInputValue('one')]);
     expect(spy).toHaveBeenCalledWith('one');
     expect(OverrideableRadioControl.prototype.render).toHaveBeenCalled();
 
@@ -108,12 +111,14 @@ describe('OverrideableRadioControl', () => {
 
   // 2
   xit('should have expected effects when changed ctrl value == props.value', () => {
-    TestUtils.Simulate.change(inputs[getIndexForInputValue('one')], getChangeEvent('one'));
+    ( inputs[getIndexForInputValue('one')] as HTMLInputElement ).value = 'one';
+    TestUtils.Simulate.change(inputs[getIndexForInputValue('one')]);
     expect(subj.querySelectorAll('input')[getIndexForInputValue('one')].checked).toBe(true);
     spyOn(OverrideableRadioControl.prototype, 'render').and.callThrough();
     spy.calls.reset();
     expect(converted.props.value).toBe(props.value);
-    TestUtils.Simulate.change(inputs[getIndexForInputValue(props.value)], getChangeEvent(props.value));
+    ( inputs[getIndexForInputValue(props.value)] as HTMLInputElement ).value = props.value;
+    TestUtils.Simulate.change(inputs[getIndexForInputValue(props.value)]);
     expect(spy).not.toHaveBeenCalled();
     expect(OverrideableRadioControl.prototype.render).toHaveBeenCalled();
     expect(subj.querySelectorAll('input')[getIndexForInputValue(props.value)].checked).toBe(true);
@@ -133,7 +138,8 @@ describe('OverrideableRadioControl', () => {
 
   // 4
   it('should have expected effect when changed props.value == control value', () => {
-    TestUtils.Simulate.change(inputs[getIndexForInputValue('one')], getChangeEvent('one'));
+    ( inputs[getIndexForInputValue('one')] as HTMLInputElement ).value = 'one';
+    TestUtils.Simulate.change(inputs[getIndexForInputValue('one')]);
     expect(subj.querySelectorAll('input')[getIndexForInputValue('one')].checked).toBe(true);
     spy.calls.reset();
     spyOn(OverrideableRadioControl.prototype, 'render').and.callThrough();
