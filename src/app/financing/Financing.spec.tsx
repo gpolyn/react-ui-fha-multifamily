@@ -92,10 +92,13 @@ describe('FinanceCosts', () => {
     const [purchaseInput] = otherCandidates;
     const newVal = 'debt';
     expect(financing.state.transaction_type).not.toBe(newVal);
-    TestUtils.Simulate.change(ReactDOM.findDOMNode(debtInput), getChangeEvent(newVal));
+    (debtInput as HTMLInputElement).value = newVal;
+    TestUtils.Simulate.change(debtInput);
     expect(financing.state.transaction_type).toBe(newVal);
     const nextVal = 'purchase'
-    TestUtils.Simulate.change(ReactDOM.findDOMNode(purchaseInput), getChangeEvent(nextVal));
+    const purchaseIpt = ReactDOM.findDOMNode(purchaseInput);
+    (purchaseIpt as HTMLInputElement).value = nextVal;
+    TestUtils.Simulate.change(purchaseIpt);
     expect(financing.state.transaction_type).toBe(nextVal);
   })
 
@@ -219,7 +222,9 @@ function inputStateChangeAsExpected(id: string, name: string, expectedValue: any
   const candidates = inputs.filter(ele => ele.id === id);
   const [subject] = candidates;
   expect(financing.state[name]).not.toBe(expectedValue);
-  TestUtils.Simulate.change(ReactDOM.findDOMNode(subject), getChangeEvent(expectedValue));
+  const subjectDOMNode = ReactDOM.findDOMNode(subject);
+  (subjectDOMNode as HTMLInputElement).value = expectedValue;
+  TestUtils.Simulate.change(subjectDOMNode);
   expect(financing.state[name]).toBe(expectedValue);
 }
 

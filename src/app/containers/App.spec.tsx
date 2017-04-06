@@ -313,7 +313,8 @@ describe('App', () => {
     it('should change the component id title-and-recording to a MinMaxLimitedNumericInput when title-and-recording-percent is checked', ()=>{
       const chkbx = getInput('title-and-recording-percent', inputs);
       expect((chkbx as HTMLInputElement).checked).not.toBe(true);
-      TestUtils.Simulate.change(chkbx, getChangeEvent(true));
+      (chkbx as HTMLInputElement).checked = true;
+      TestUtils.Simulate.change(chkbx);
       expect((chkbx as HTMLInputElement).checked).toBe(true);
       const inputsRev = getAllInputs();
       thereShouldBeOneSuchInput('title-and-recording', inputsRev);
@@ -334,7 +335,8 @@ describe('App', () => {
     it('should change the component id financing-fee to a MinMaxLimitedNumericInput when financing-fee-percent is checked', ()=>{
       const chkbx = getInput('financing-fee-percent', inputs);
       expect((chkbx as HTMLInputElement).checked).not.toBe(true);
-      TestUtils.Simulate.change(chkbx, getChangeEvent(true));
+      (chkbx as HTMLInputElement).checked = true;
+      TestUtils.Simulate.change(chkbx);
       expect((chkbx as HTMLInputElement).checked).toBe(true);
       const inputsRev = getAllInputs();
       thereShouldBeOneSuchInput('financing-fee', inputsRev);
@@ -355,7 +357,8 @@ describe('App', () => {
     it('should change the component id total to a MinLimitedNumericInput when totalOperatingExpenseIsPercent is checked', ()=>{
       const chkbx = getInput('totalOperatingExpenseIsPercent', inputs);
       expect((chkbx as HTMLInputElement).checked).not.toBe(true);
-      TestUtils.Simulate.change(chkbx, getChangeEvent(true));
+      (chkbx as HTMLInputElement).checked = true;
+      TestUtils.Simulate.change(chkbx);
       expect((chkbx as HTMLInputElement).checked).toBe(true);
       const inputsRev = getAllInputs();
       thereShouldBeOneSuchInput('total', inputsRev);
@@ -489,7 +492,9 @@ function inputStateChangeAsExpected(id: string, name: string, expectedValue: any
   }
   const [subject] = candidates;
   expect(app.state[name]).not.toBe(expectedValue);
-  TestUtils.Simulate.change(ReactDOM.findDOMNode(subject), getChangeEvent(expectedValue));
+  const subjDOMNode = ReactDOM.findDOMNode(subject);
+  (subjDOMNode as HTMLInputElement).value = expectedValue;
+  TestUtils.Simulate.change(subjDOMNode);
   expect(app.state[name]).toBe(expectedValue);
 }
 
