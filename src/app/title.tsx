@@ -8,7 +8,7 @@ const styles = {
     padding: '1rem',
     backgroundColor: '#cf4646',
     color: 'white'
-  },
+  } as React.CSSProperties,
   h1: {
     fontWeight: 300,
     fontSize: '4rem',
@@ -19,7 +19,7 @@ const styles = {
     backgroundColor: 'white',
     borderRadius: '1rem',
     margin: '1rem'
-  },
+  } as React.CSSProperties,
   h2: {
     fontWeight: 300,
     fontSize: '2rem',
