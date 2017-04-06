@@ -14,11 +14,6 @@ const basicProps = {
   onChange: ()=>{}
 };
 
-function getChangeEvent(val: any){
-  const blah = {target: {value: val}} as React.ChangeEvent<any>;
-  return blah;
-}
-
 let spy;
 let props;
 let node;
