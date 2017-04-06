@@ -103,7 +103,6 @@ export function minTests(component: any, more){
     it('should have expected effects when changed value > min and != props.value', ()=>{
       const changeVal = props.value + diff;
       input.value = String(changeVal);
-      // TestUtils.Simulate.change(input, getChangeEvent(String(changeVal)));
       TestUtils.Simulate.change(input);
       expect(spy).toHaveBeenCalledWith(changeVal);
       expect(input.value).toBe(String(changeVal));
@@ -112,20 +111,21 @@ export function minTests(component: any, more){
     it('should have expected effects when changed value > min and == props.value', ()=>{
       const changeVal = props.value + diff;
       input.value = String(changeVal);
-      //TestUtils.Simulate.change(input, getChangeEvent(String(changeVal)));
       TestUtils.Simulate.change(input);
       expect(input.value).toBe(String(changeVal));
       expect(converted.props.value).toBe(props.value);
       expect(converted.state.value).toBe(changeVal);
       spy.calls.reset();
-      TestUtils.Simulate.change(input, getChangeEvent(String(props.value)));
+      input.value = String(props.value);
+      TestUtils.Simulate.change(input);
       expect(input.value).toBe(String(props.value));
       expect(spy).not.toHaveBeenCalled();
     });
 
     it('should have input value == min for changed value < min when entered', ()=>{
       const invalidVal = String(props.min - 1);
-      TestUtils.Simulate.change(input, getChangeEvent(invalidVal));
+      (input as HTMLInputElement).value = invalidVal;
+      TestUtils.Simulate.change(input);
       expect(spy).toHaveBeenCalledWith(props.min);
       expect(input.value).toBe(invalidVal);
       spy.calls.reset();
@@ -155,7 +155,8 @@ export function minTests(component: any, more){
 
     it('should have expected effect when changed props.value == control value', () => {
       const newValue = props.value + diff;
-      TestUtils.Simulate.change(input, getChangeEvent(newValue));
+      input.value = String(newValue);
+      TestUtils.Simulate.change(input);
       expect(input.value).toBe(String(newValue));
       expect(converted.state.value).toBe(newValue);
       expect(converted.props.value).toBe(props.value);
@@ -168,7 +169,8 @@ export function minTests(component: any, more){
 
     it('should have input value == min for changed value < min when blurred', ()=>{
       const invalidVal = String(props.min - diff);
-      TestUtils.Simulate.change(input, getChangeEvent(invalidVal));
+      input.value = invalidVal;
+      TestUtils.Simulate.change(input);
       expect(spy).toHaveBeenCalledWith(props.min);
       expect(input.value).toBe(invalidVal);
       spy.calls.reset();
@@ -213,7 +215,8 @@ export function maxTests(component: any, more){
 
     it('should have expected effects when changed value < max and != props.value', ()=>{
       const changeVal = props.max - diff;
-      TestUtils.Simulate.change(input, getChangeEvent(String(changeVal)));
+      input.value = String(changeVal);
+      TestUtils.Simulate.change(input);
       expect(spy).toHaveBeenCalledWith(changeVal);
       expect(input.value).toBe(String(changeVal));
     });
@@ -222,14 +225,12 @@ export function maxTests(component: any, more){
       const changeVal = props.max - diff;
       input.value = String(changeVal);
       TestUtils.Simulate.change(input);
-      //TestUtils.Simulate.change(input, getChangeEvent(String(changeVal)));
       expect(input.value).toBe(String(changeVal));
       expect(converted.props.value).toBe(props.value);
       expect(converted.state.value).toBe(changeVal);
       spy.calls.reset();
       input.value = String(props.value);
       TestUtils.Simulate.change(input);
-      //TestUtils.Simulate.change(input, getChangeEvent(String(props.value)));
       expect(input.value).toBe(String(props.value));
       expect(spy).not.toHaveBeenCalled();
     });
@@ -237,7 +238,6 @@ export function maxTests(component: any, more){
     it('should have input value == max for changed value > max when entered', ()=>{
       const invalidVal = String(props.max + diff);
       input.value = String(invalidVal);
-      //TestUtils.Simulate.change(input, getChangeEvent(invalidVal));
       TestUtils.Simulate.change(input);
       expect(spy).toHaveBeenCalledWith(props.max);
       expect(input.value).toBe(invalidVal);
@@ -283,7 +283,6 @@ export function maxTests(component: any, more){
     it('should have input value == max for changed value > max when blurred', ()=>{
       const invalidVal = String(props.max + diff);
       input.value = String(invalidVal);
-      //TestUtils.Simulate.change(input, getChangeEvent(invalidVal));
       TestUtils.Simulate.change(input);
       expect(spy).toHaveBeenCalledWith(props.max);
       expect(input.value).toBe(invalidVal);
