@@ -9,12 +9,12 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     minHeight: '100%'
-  },
+  } as React.CSSProperties,
   main: {
     flex: 1,
     display: 'flex',
     flexDirection: 'column'
-  }
+  } as React.CSSProperties
 };
 
 interface IMainProps {};

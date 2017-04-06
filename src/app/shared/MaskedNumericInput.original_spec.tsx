@@ -36,7 +36,8 @@ describe('ParkingIncomeForm', () => {
     const subj = squelchTS2345(TestUtils.renderIntoDocument(<MaskedNumericInput max={10} onChange={sp}/>));
     const input = TestUtils.findRenderedDOMComponentWithTag(subj, 'input');
     const blah = {target: {value: 18}} as React.ChangeEvent<any>;
-    TestUtils.Simulate.change(ReactDOM.findDOMNode(input), blah);
+    const inputDOMNode = ReactDOM.findDOMNode(input);
+    TestUtils.Simulate.change(inputDOMNode, blah);
     expect(sp).toHaveBeenCalledWith(10);
   })
   it('initial render', () => {

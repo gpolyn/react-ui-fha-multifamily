@@ -5,18 +5,18 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     backgroundColor: '#1f1f1f'
-  },
+  } as React.CSSProperties,
   title: {
     flex: 1,
     fontSize: '1.5rem',
     margin: '1rem'
-  },
+  } as React.CSSProperties,
   date: {
     flex: 1,
     textAlign: 'right',
     margin: '1rem',
     color: 'white'
-  }
+  } as React.CSSProperties
 };
 
 interface IHeaderProps {};
