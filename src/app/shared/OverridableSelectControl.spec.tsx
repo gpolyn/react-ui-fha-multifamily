@@ -56,7 +56,8 @@ describe('OverrideableSelectControl', () => {
   it('should be noted that TestUtils.Simulate.change results in re-rendering', () => {
     spyOn(OverrideableSelectControl.prototype, 'render').and.callThrough();
     expect(OverrideableSelectControl.prototype.render).not.toHaveBeenCalled();
-    TestUtils.Simulate.change(input, getChangeEvent('one'));
+    input.value = 'one';
+    TestUtils.Simulate.change(input);
     expect(OverrideableSelectControl.prototype.render).toHaveBeenCalled();
   });
 
@@ -87,7 +88,8 @@ describe('OverrideableSelectControl', () => {
   it('should have expected effects when changed ctrl value != props.value', () => {
     spyOn(OverrideableSelectControl.prototype, 'render').and.callThrough();
     spy.calls.reset();
-    TestUtils.Simulate.change(input, getChangeEvent('one'));
+    input.value = 'one';
+    TestUtils.Simulate.change(input);
     expect(spy).toHaveBeenCalledWith('one');
     expect(OverrideableSelectControl.prototype.render).toHaveBeenCalled();
     expect(options[getIndexForInputValue('one')].selected).toBe(true);
@@ -95,13 +97,15 @@ describe('OverrideableSelectControl', () => {
 
   // 2
   xit('should have expected effects when changed ctrl value == props.value', () => {
-    TestUtils.Simulate.change(input, getChangeEvent('one'));
+    input.value = 'one';
+    TestUtils.Simulate.change(input);
     spyOn(OverrideableSelectControl.prototype, 'render').and.callThrough();
     spy.calls.reset();
     expect(converted.state.value).toBe('one');
     expect(converted.props.value).toBe(props.value);
     expect(props.value === 'one').toBe(false);
-    TestUtils.Simulate.change(input, getChangeEvent(props.value));
+    input.value = props.value;
+    TestUtils.Simulate.change(input);
     expect(OverrideableSelectControl.prototype.render).toHaveBeenCalled();
     expect(options[getIndexForInputValue(props.value)].selected).toBe(true);
     expect(spy).not.toHaveBeenCalled();
@@ -123,7 +127,8 @@ describe('OverrideableSelectControl', () => {
   // 4
   it('should have expected effect when changed props.value == control value', () => {
     const controlVal = 'one'
-    TestUtils.Simulate.change(input, getChangeEvent(controlVal));
+    input.value = controlVal;
+    TestUtils.Simulate.change(input);
     const newPropsValue = controlVal;
     spy.calls.reset();
     spyOn(OverrideableSelectControl.prototype, 'render').and.callThrough();
