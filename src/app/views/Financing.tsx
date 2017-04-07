@@ -90,7 +90,18 @@ export function Financing(props: any){
     <div>
       <div id='transaction-amount-container'>
         <div id='transaction-amount-input'>
-          {amount}
+          <label htmlFor='transaction-amount'>
+            transaction amount<span className='required'>*</span>
+          </label>
+          <SharedInput2 onChange={onChange} valKey='transaction_amount'>
+            <MinLimitedNumericInput
+              value={props.transaction_amount}
+              className='required'
+              name='transaction_amount'
+              min={0}
+              id='transaction-amount'
+              />
+          </SharedInput2>
         </div>
         <SharedInput2 onChange={onChange} valKey='transaction_type'>
           <OverrideableRadioControl id='transaction-amount-type-selector' value={props.transaction_type} data-options={transactionTypeOptions} />

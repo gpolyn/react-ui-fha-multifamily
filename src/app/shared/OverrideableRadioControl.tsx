@@ -31,6 +31,7 @@ export class OverrideableRadioControl extends React.Component<any, any> {
     // console.log("OverrideableRadioControl#render")
     const options = this.props['data-options'];
     const controlName = this.props.name;
+    const containerText = this.props['data-containerText'];
     const optionEles = options.map(opt =>
       <label key={opt.value}>
         {opt.label}
@@ -39,6 +40,7 @@ export class OverrideableRadioControl extends React.Component<any, any> {
     );
     return(
       <div {...this.props} onChange={this.onChange}>
+        {containerText}&nbsp;
         {optionEles}
       </div>
     );
