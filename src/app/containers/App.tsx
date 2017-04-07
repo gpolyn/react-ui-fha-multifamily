@@ -62,6 +62,11 @@ const parkingIncomeCSS = {
   incomeSourceContainerName: 'residential-parking-income'
 };
 
+const verticality = {
+  marginLeft: 'auto',
+  marginRight: 'auto'
+};
+
 export class App extends React.Component<any, any> {
 
   constructor(props: any){
@@ -163,17 +168,19 @@ export class App extends React.Component<any, any> {
       totalGrossCommercial: totalGrossCommercial
     };
     const operatingIncome = OperatingIncome({...this.state, ...opIncProps, onChange: this.onChange});
-    const parking = (collection: any, collectionName: string, css: any) => {
+    const parking = (collection: any, collectionName: string, css: any, caption: string) => {
       return (<ParkingIncome
        incomes={collection}
+       caption={caption}
        onDestroy={id => this.updateIncomes(collectionName, actions.deleteIncome(id))}
        onSave={dta => this.updateIncomes(collectionName, actions.addIncome(dta))}
        css={css}
        />);
     };
-    const other = (collection: any, collectionName: string, css: any) => {
+    const other = (collection: any, collectionName: string, css: any, caption: string) => {
       return ( <OtherIncome
        incomes={collection}
+       caption={caption}
        onDestroy={id => this.updateIncomes(collectionName, actions.deleteIncome(id))}
        onSave={dta => this.updateIncomes(collectionName, actions.addIncome(dta))}
        css={css}
@@ -182,10 +189,10 @@ export class App extends React.Component<any, any> {
 
     return (
         <div className='column'>
-          <div id='inner_page_title'> 
+          <div id='inner_page_title' style={{ textAlign: 'center' }}> 
             <h1>FHA Sec. 223(f) refinance/purchase demo</h1>
           </div>
-          <div id='todoapp'>
+          <div id='todoapp' style={verticality}>
             <div className='content'>
               <div id='income'>
           <ApartmentIncome
@@ -193,14 +200,10 @@ export class App extends React.Component<any, any> {
              onDestroy={id => this.updateIncomes('apartmentIncomes', actions.deleteIncome(id))}
              onSave={dta => this.updateIncomes('apartmentIncomes', actions.addIncome(dta))}
              />
-           residential parking
-           {parking(this.state.parkingIncomes, 'parkingIncomes', parkingIncomeCSS)}
-           commercial parking
-           {parking(this.state.commercialParkingIncomes, 'commercialParkingIncomes', commercialParkingIncomeCSS)}
-           commercial income
-           {other(this.state.commercialIncomes, 'commercialIncomes', commercialIncomeCSS)}
-           other income
-           {other(this.state.otherIncomes, 'otherIncomes', otherIncomeCSS)}
+           {parking(this.state.parkingIncomes, 'parkingIncomes', parkingIncomeCSS, 'residential parking income')}
+           {parking(this.state.commercialParkingIncomes, 'commercialParkingIncomes', commercialParkingIncomeCSS, 'commercial parking income')}
+           {other(this.state.commercialIncomes, 'commercialIncomes', commercialIncomeCSS, 'commercial income')}
+           {other(this.state.otherIncomes, 'otherIncomes', otherIncomeCSS, 'other residential income')}
            {operatingIncome}           
           <div id='operating-expense'>
             <div className='left'>

@@ -44,11 +44,11 @@ export function Project(props: any) {
     </div>
   );
   const aff = (
-      <div key='affordability' id='affordability'>
-        apartment rents are
+      <div key='affordability'>
         <OnChangePayloadObjectInterceptor valKey='affordability' onChange={onChange}>
           <OverrideableRadioControl 
            id='affordability' 
+           data-containerText='apartment rents are'
            name='affordability'
            value={affordability}
            data-options={affordabilityOpts}
