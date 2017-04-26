@@ -43,5 +43,5 @@ table#residential-parking-income tr:first-child td:nth-child(2){
 }
 
 #inner_page_title h1 {
-  text-align: center;
+  text-align: center !important;
 }
