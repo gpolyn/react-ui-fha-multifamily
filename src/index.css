@@ -32,3 +32,16 @@ table#apartment-income tr td:nth-child(5) {
 	padding: 0px !important;
 }
 
+table#commercial-parking-income thead th:nth-child(2),
+table#residential-parking-income thead th:nth-child(2) {
+  border: 0;
+}
+
+table#commercial-parking-income tr:first-child td:nth-child(2),
+table#residential-parking-income tr:first-child td:nth-child(2){
+  text-align: center;
+}
+
+#inner_page_title h1 {
+  text-align: center;
+}
