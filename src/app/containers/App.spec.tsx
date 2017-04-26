@@ -199,14 +199,14 @@ describe('App', () => {
       (monthlyRentField as HTMLInputElement).value = String(rentAmount);
       TestUtils.Simulate.change(monthlyRentField);
       const fm = domApp.querySelector('tr#new-apartment-income form');
-      const add = domApp.querySelector('tr#new-apartment-income .add-item');
+      const add = domApp.querySelector('tr#new-apartment-income .add button');
       TestUtils.Simulate.click(add);
 
       expect(app.state.apartmentIncomes.length).toBe(1);
       const income = app.state.apartmentIncomes[0];
       expect(income.monthlyRent).toBe(rentAmount)
       expect(income.units).toBe(someNumber)
-      const btn = domApp.querySelector('button.apartment-income-destroy');
+      const btn = domApp.querySelector('.delete-container button');
       TestUtils.Simulate.click(btn);
       expect(app.state.apartmentIncomes.length).toBe(0);
     })

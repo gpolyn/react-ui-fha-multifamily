@@ -66,7 +66,7 @@ describe('ApartmentIncomeForm', () => {
     expect(submitInput.props.className).toBe('add');
     const [formInput] = submitInput.props.children;
     expect(submitInput.props.children.type).toBe('button');
-    const expectedClassNames = 'add-apartment-income add-item';
+    const expectedClassNames = 'mdl-button mdl-js-button mdl-button--icon';
     expect(submitInput.props.children.props.className).toBe(expectedClassNames);
   });
   it('should have expected initial field values', () => {
