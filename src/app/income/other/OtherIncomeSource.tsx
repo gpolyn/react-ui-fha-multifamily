@@ -5,7 +5,7 @@ export class OtherIncomeSource extends React.PureComponent<any, {}> {
 
   render() {
     console.log("rendering OtherIncomeSource")
-    const deleteCssClasses = 'simple-income-source-destroy destroy-item';
+    const deleteCssClasses = 'mdl-button mdl-js-button mdl-button--icon';
     return (
       <tr className={this.props.incomeSourceContainerName}>
         <td className='use'>
@@ -26,7 +26,7 @@ export class OtherIncomeSource extends React.PureComponent<any, {}> {
         <td>
           <div className='delete-container'>
             <button className={deleteCssClasses} onClick={ () => {this.props.onDelete(this.props.id)} }>
-              delete
+              <i className="material-icons">remove_circle_outline</i>
             </button>
           </div>
         </td>

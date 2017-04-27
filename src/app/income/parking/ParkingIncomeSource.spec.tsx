@@ -65,7 +65,7 @@ describe('ParkingIncomeSource', () => {
     expect(deleteBtn.props.className).toBe('delete-container');
     expect(deleteBtn.props.children.type).toBe('button');
     const deleteContent = deleteBtn.props.children.props;
-    const expectedClassNames = 'parking-income-destroy destroy-item';
+    const expectedClassNames = 'mdl-button mdl-js-button mdl-button--icon';
     expect(deleteContent.className).toBe(expectedClassNames);
   });
 
