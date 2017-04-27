@@ -28,6 +28,8 @@ div.add {
 }
 
 table#apartment-income tr td:nth-child(5),
+table#other-residential-income tr td:nth-child(4),
+table#commercial-income tr td:nth-child(4),
 table#residential-parking-income tr td:nth-child(5),
 table#commercial-parking-income tr td:nth-child(5) {
 	border: 0px !important;

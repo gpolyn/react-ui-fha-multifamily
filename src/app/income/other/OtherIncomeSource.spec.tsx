@@ -57,7 +57,7 @@ describe('OtherIncomeSource', () => {
     expect(innerDiv.props.className).toBe('delete-container');
     expect(innerDiv.props.children.type).toBe('button');
     const deleteContent = innerDiv.props.children.props;
-    const expectedClassNames = 'simple-income-source-destroy destroy-item';
+    const expectedClassNames = 'mdl-button mdl-js-button mdl-button--icon';
     expect(deleteContent.className).toBe(expectedClassNames);
   });
 

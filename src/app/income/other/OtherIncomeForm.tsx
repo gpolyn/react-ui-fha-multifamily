@@ -25,7 +25,9 @@ export class OtherIncomeForm extends React.PureComponent<any, any> {
           </td>
           <td>
             <div className='add'>
-              <button className='add-item' onClick={this.props.onSubmit} value='Submit'/>
+              <button onClick={this.props.onSubmit} className="mdl-button mdl-js-button mdl-button--icon">
+                <i className="material-icons">add_circle_outline</i>
+              </button>
             </div>
           </td>
       </tr>

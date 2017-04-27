@@ -218,12 +218,12 @@ describe('App', () => {
       (monthlyRentField as HTMLInputElement).value = String(rentAmount);
       TestUtils.Simulate.change(monthlyRentField);
       // const fm = domApp.querySelector('#new-other-income form');
-      const addBtn = domApp.querySelector('#new-other-income .add-item');
+      const addBtn = domApp.querySelector('#new-other-income .add button');
       TestUtils.Simulate.click(addBtn);
       expect(app.state.otherIncomes.length).toBe(1);
       const income = app.state.otherIncomes[0];
       expect(income.monthlyRent).toBe(rentAmount)
-      const btn = domApp.querySelector('button.simple-income-source-destroy');
+      const btn = domApp.querySelector('.delete-container button');
       TestUtils.Simulate.click(btn);
       expect(app.state.apartmentIncomes.length).toBe(0);
     })
@@ -234,12 +234,12 @@ describe('App', () => {
       const rentAmount = someNumber * 2;
       (commercialRent as HTMLInputElement).value = String(rentAmount);
       TestUtils.Simulate.change(commercialRent);
-      const addBtn = domApp.querySelector('#new-commercial-income .add-item');
+      const addBtn = domApp.querySelector('#new-commercial-income .add button');
       TestUtils.Simulate.click(addBtn);
       expect(app.state.commercialIncomes.length).toBe(1);
       const income = app.state.commercialIncomes[0];
       expect(income.monthlyRent).toBe(rentAmount)
-      const btn = domApp.querySelector('.commercial-income button.simple-income-source-destroy');
+      const btn = domApp.querySelector('.commercial-income .delete-container button');
       TestUtils.Simulate.click(btn);
       expect(app.state.commercialIncomes.length).toBe(0);
     })
