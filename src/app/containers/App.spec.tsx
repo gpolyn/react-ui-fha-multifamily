@@ -259,7 +259,7 @@ describe('App', () => {
       const income = app.state.commercialParkingIncomes[0];
       expect(income.monthlyFee).toBe(rentAmount)
       expect(income.spaces).toBe(someNumber)
-      const btn = domApp.querySelector('.commercial-parking-income .parking-income-destroy');
+      const btn = domApp.querySelector('.commercial-parking-income .delete-container button');
       TestUtils.Simulate.click(btn);
       expect(app.state.commercialParkingIncomes.length).toBe(0);
     })
@@ -279,7 +279,7 @@ describe('App', () => {
       const income = app.state.parkingIncomes[0];
       expect(income.monthlyFee).toBe(rentAmount)
       expect(income.spaces).toBe(someNumber)
-      const btn = domApp.querySelector('.residential-parking-income .parking-income-destroy');
+      const btn = domApp.querySelector('.residential-parking-income .delete-container button');
       TestUtils.Simulate.click(btn);
       expect(app.state.parkingIncomes.length).toBe(0);
     })

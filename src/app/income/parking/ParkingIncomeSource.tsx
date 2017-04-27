@@ -4,7 +4,7 @@ import * as React from 'react';
 export class ParkingIncomeSource extends React.PureComponent<any, {}> {
 
   render() {
-    const deleteCssClasses = 'parking-income-destroy destroy-item';
+    const deleteCssClasses = 'mdl-button mdl-js-button mdl-button--icon';
     return (
       <tr className={this.props.incomeSourceContainerName}>
         <td className='spaces'>
@@ -29,7 +29,7 @@ export class ParkingIncomeSource extends React.PureComponent<any, {}> {
         </td>
         <td className='delete-container'>
           <button className={deleteCssClasses} onClick={ () => {this.props.onDelete(this.props.id)} }>
-            delete
+            <i className="material-icons">remove_circle_outline</i>
           </button>
         </td>
       </tr>
